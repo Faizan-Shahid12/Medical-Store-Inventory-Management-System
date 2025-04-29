@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Controller.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Backend Coverage</a> &gt; <a href="index.source.html" class="el_package">Backend</a> &gt; <span class="el_source">Controller.java</span></div><h1>Controller.java</h1><pre class="source lang-java linenums">package Backend;
+
+import Database.DBHandler;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+
+public class Controller 
+{
+	private static InventoryManager Manager;
+        private static Owner Own;
+	private static Supplier Sup;
+	private static Pharmacist Phar;
+        
+<span class="fc" id="L15">        private static DBHandler DB = DBHandler.getInstance();</span>
+        
+	public Controller()
+<span class="fc" id="L18">	{</span>
+<span class="fc" id="L19">		Manager = new InventoryManager();</span>
+<span class="fc" id="L20">                Own = new Owner();</span>
+<span class="fc" id="L21">                Sup = new Supplier();</span>
+<span class="fc" id="L22">                Phar = new Pharmacist();</span>
+<span class="fc" id="L23">	}</span>
+        
+        public void setInventoryManager(InventoryManager Man)
+        {
+<span class="fc" id="L27">            Manager = Man;</span>
+<span class="fc" id="L28">        }</span>
+        
+	public void setSupplier(Supplier Man)
+        {
+<span class="fc" id="L32">            Sup = Man;</span>
+<span class="fc" id="L33">        }</span>
+        
+        public void setStoreOwner(Owner Man)
+        {
+<span class="fc" id="L37">            Own = Man;</span>
+<span class="fc" id="L38">        }</span>
+        
+        public void setPharmacist(Pharmacist Man)
+        {
+<span class="fc" id="L42">            Phar = Man;</span>
+<span class="fc" id="L43">        }</span>
+           
+        public ArrayList&lt;Owner&gt; getOwner() throws SQLException
+        {
+<span class="nc" id="L47">            return DB.GetAllOwner();</span>
+        }
+        
+        public ArrayList&lt;Pharmacist&gt; getPharmacist() throws SQLException
+        {
+<span class="nc" id="L52">            return DB.GetAllPharmacist();</span>
+        }
+        
+        
+	public void AddRequest(String Name, String Type, int quan,double price, LocalDate expiry, LocalDate Manufac) throws SQLException
+	{
+<span class="fc" id="L58">            Sup.AddRequest(Name, Type, quan, price, expiry, Manufac);</span>
+<span class="fc" id="L59">	}</span>
+	
+	public void RemoveRequest(Medicine Med) throws SQLException
+	{
+<span class="fc" id="L63">		Sup.RemoveRequest(Med);</span>
+<span class="fc" id="L64">	}</span>
+	
+        public ArrayList&lt;Medicine&gt; GetPendingRequest()
+        {
+<span class="fc" id="L68">            return Sup.GetPendingRequest();</span>
+        }
+        
+	public void StopSupply(Medicine Med) throws SQLException
+	{
+<span class="fc" id="L73">		Sup.StopSupply(Med);</span>
+		
+<span class="fc" id="L75">	}</span>
+	public void StartSupply(Medicine Med) throws SQLException
+	{
+<span class="fc" id="L78">		Sup.StartSupply(Med);</span>
+<span class="fc" id="L79">	}</span>
+	
+	public void AddMedicine(Medicine Med) throws SQLException
+	{
+<span class="fc" id="L83">            Manager.AddMedicine(Med);</span>
+<span class="fc" id="L84">	}</span>
+        
+        public ArrayList&lt;Medicine&gt; getAddedMeds() throws SQLException
+        {
+            
+<span class="fc" id="L89">            ArrayList&lt;Medicine&gt; MedList = DB.GetAddedMedicines();</span>
+            
+<span class="fc" id="L91">            return MedList; </span>
+        }
+	
+        public ArrayList&lt;Medicine&gt; getApprovedMeds() throws SQLException
+        {
+            
+<span class="fc" id="L97">            ArrayList&lt;Medicine&gt; MedList = DB.GetApprovedMedicines();</span>
+            
+<span class="fc" id="L99">            return MedList;</span>
+        }
+        
+        public ArrayList&lt;Medicine&gt; getPendingMeds() throws SQLException
+        {
+            
+<span class="fc" id="L105">            ArrayList&lt;Medicine&gt; MedList = DB.GetPendingMedicines();</span>
+            
+<span class="fc" id="L107">            return MedList;</span>
+        }
+        
+        public void RemoveMedicine(Medicine Med) throws SQLException
+        {
+<span class="fc" id="L112">            Manager.RemoveMedicine(Med);</span>
+<span class="fc" id="L113">        }</span>
+        
+        public void DeleteMedicine(Medicine Med) throws SQLException
+        {
+<span class="fc" id="L117">            Manager.DeleteMedicine(Med);</span>
+<span class="fc" id="L118">        }</span>
+        
+        public ArrayList&lt;InventoryManager&gt; GetInventoryManager() throws SQLException
+        {
+<span class="fc" id="L122">            return DB.GetAllManagers();</span>
+        }
+        
+        public ArrayList&lt;Supplier&gt; GetSupplier() throws SQLException
+        {
+<span class="fc" id="L127">            return DB.GetAllSupplier();</span>
+        }
+        
+        public void ApproveManager(int Id) throws SQLException
+        {
+<span class="fc" id="L132">            Own.ApproveManager(Id);</span>
+<span class="fc" id="L133">        }</span>
+        
+        public void RejectManager(int Id) throws SQLException
+        {
+<span class="fc" id="L137">            Own.RejectManager(Id);</span>
+<span class="fc" id="L138">        }</span>
+        
+        public void DeleteManager(int Id) throws SQLException
+        {
+<span class="fc" id="L142">            Own.DeleteManager(Id);</span>
+<span class="fc" id="L143">        }</span>
+        
+        public void ApproveSupplier(int Id) throws SQLException
+        {
+<span class="fc" id="L147">            Own.ApproveSupplier(Id);</span>
+<span class="fc" id="L148">        }</span>
+        
+        public void RejectSupplier(int Id) throws SQLException
+        {
+<span class="fc" id="L152">            Own.RejectSupplier(Id);</span>
+<span class="fc" id="L153">        }</span>
+        
+        public void DeleteSupplier(int Id) throws SQLException
+        {
+<span class="fc" id="L157">            Own.DeleteSupplier(Id);</span>
+<span class="fc" id="L158">        }</span>
+        
+        public ArrayList&lt;Pharmacist&gt; GetPharmacist() throws SQLException
+        {
+<span class="nc" id="L162">            return DB.GetAllPharmacist();</span>
+        }
+        
+        public void ApprovePharmacist(int Id) throws SQLException
+        {
+<span class="fc" id="L167">            Own.ApprovePharmacist(Id);</span>
+<span class="fc" id="L168">        }</span>
+        
+        public void RejectPharmacist(int Id) throws SQLException 
+        {
+<span class="fc" id="L172">            Own.RejectPharmacist(Id);</span>
+<span class="fc" id="L173">        }</span>
+
+        public void DeletePharmacist(int Id) throws SQLException 
+        {
+<span class="fc" id="L177">            Own.DeletePharmacist(Id);</span>
+<span class="fc" id="L178">        }</span>
+        
+        public void ApproveMedicine(Medicine Med) throws SQLException
+        {
+<span class="fc" id="L182">            Own.ApproveMed(Med);</span>
+<span class="fc" id="L183">        }</span>
+        
+        public void RejectMedicine(Medicine Med) throws SQLException
+        {
+<span class="fc" id="L187">            Own.RejectMed(Med);</span>
+<span class="fc" id="L188">        }</span>
+        
+        public ArrayList&lt;Medicine&gt; getSupMedicine()
+        {
+<span class="fc" id="L192">            return Sup.getSupMed();</span>
+        }
+        
+        public String getSupName(int id) throws SQLException
+        {
+<span class="fc" id="L197">            ArrayList&lt;Supplier&gt; SupList = DB.GetAllSupplier();</span>
+            
+<span class="pc bpc" id="L199" title="1 of 2 branches missed.">            for(Supplier Sup: SupList)</span>
+            {
+<span class="pc bpc" id="L201" title="1 of 2 branches missed.">                if(Sup.getSupId() == id)</span>
+                {
+<span class="fc" id="L203">                    return Sup.getName();</span>
+                }
+<span class="nc" id="L205">            }</span>
+            
+<span class="nc" id="L207">            return null;</span>
+        }
+        
+        public void RemoveMedicineDB(Medicine Med) throws SQLException
+        {
+<span class="fc" id="L212">            Sup.DeleteMedicine(Med);</span>
+<span class="fc" id="L213">        }</span>
+        
+        public ArrayList&lt;Medicine&gt; GetExpiredMedicine()
+        {
+<span class="fc" id="L217">            return Manager.IdentifyExpired();</span>
+        }
+        
+        public void RestockMedicine(int MedId,int Quan) throws SQLException
+        {
+<span class="fc" id="L222">            Manager.Restock(MedId, Quan);</span>
+<span class="fc" id="L223">        }</span>
+        
+        public void AddPrescription(int Quantity, LocalDate AddDate, String PatientName, String Type, String DoctorName, String HospitalName, ArrayList&lt;Medicine&gt; Meds) throws SQLException
+        {
+<span class="fc" id="L227">            Phar.AddPrescription(1,Quantity,AddDate,PatientName,Type,DoctorName,HospitalName,Meds);</span>
+<span class="fc" id="L228">        }</span>
+            
+        public ArrayList&lt;Medicine&gt; GetAllMedicines() throws SQLException
+        {
+<span class="fc" id="L232">            return DB.GetAllMedicines();</span>
+        }
+        
+        public ArrayList&lt;Prescription&gt; GetAllPrescription()
+        {
+<span class="fc" id="L237">            return Phar.getPrescription();</span>
+        }
+        
+        public double CalculateTotal(ArrayList&lt;Medicine&gt; Meds, int quan)
+        {
+<span class="fc" id="L242">            return Phar.CalculateTotal(Meds, quan);</span>
+        }
+        
+        public void DeletePrescription(Prescription Pres) throws SQLException
+        {
+<span class="fc" id="L247">            Phar.DeletePrescription(Pres);</span>
+<span class="fc" id="L248">        }</span>
+        
+        public void SellMedicine(ArrayList&lt;SoldMedicine&gt; Meds) throws SQLException
+        {
+<span class="fc" id="L252">            Phar.SellMedicine(Meds,getAddedMeds());</span>
+<span class="fc" id="L253">        }</span>
+        
+        public void SellPrescription(Prescription Pres) throws SQLException
+        {
+<span class="fc" id="L257">            Phar.SellPrescription(Pres);</span>
+<span class="fc" id="L258">        }</span>
+        
+        public boolean CheckQuan(ArrayList&lt;Medicine&gt; Meds, int Quan)
+        {
+<span class="fc" id="L262">            return Phar.CheckQuan(Meds, Quan);</span>
+        }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202504151049</span></div></body></html>

@@ -1,0 +1,636 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DBHandler.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Backend Coverage</a> &gt; <a href="index.source.html" class="el_package">Database</a> &gt; <span class="el_source">DBHandler.java</span></div><h1>DBHandler.java</h1><pre class="source lang-java linenums">package Database;
+
+
+import Backend.*;
+import java.sql.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+
+
+public class DBHandler 
+{
+<span class="fc" id="L12">    String userName = &quot;root&quot;; //The username of the sql database</span>
+<span class="fc" id="L13">    String pass = &quot;1980&quot;; //The pass of your database</span>
+    Connection con; //Connection object
+    Statement st; //Statement Obj
+    
+    private static DBHandler DB;
+    
+    private DBHandler()
+<span class="fc" id="L20">    {</span>
+        //Connect to DB
+        try
+        {       
+<span class="fc" id="L24">                String connectionUrl = &quot;jdbc:mysql://localhost:3306/se_test_project&quot;;</span>
+<span class="fc" id="L25">                con = DriverManager.getConnection(connectionUrl,userName,pass);  </span>
+<span class="fc" id="L26">                System.out.println(&quot;Connected to DB&quot;);</span>
+        }
+<span class="fc" id="L28">        catch(SQLException e)</span>
+        {
+<span class="fc" id="L30">                System.out.println(&quot;Connection Failed&quot;);</span>
+<span class="fc" id="L31">                e.printStackTrace();</span>
+<span class="fc" id="L32">        }</span>
+<span class="fc" id="L33">    }</span>
+    
+    public static DBHandler getInstance()
+    {
+<span class="fc bfc" id="L37" title="All 2 branches covered.">        if (DB == null)</span>
+<span class="fc" id="L38">            DB = new DBHandler();</span>
+<span class="fc" id="L39">        return DB;</span>
+    }
+    
+    public ArrayList&lt;Medicine&gt; GetAllMedicines() throws SQLException
+    {
+<span class="fc" id="L44">            Statement st1 = con.createStatement();</span>
+<span class="fc" id="L45">            String query1 = &quot;Select * From Medicine &quot;;</span>
+<span class="fc" id="L46">            ResultSet rs1 = st1.executeQuery(query1);</span>
+
+<span class="fc" id="L48">            ArrayList&lt;Medicine&gt; MedList = new ArrayList&lt;&gt;();</span>
+
+<span class="fc bfc" id="L50" title="All 2 branches covered.">            while(rs1.next())</span>
+            {
+<span class="fc" id="L52">                Medicine med = new Medicine(rs1.getInt(&quot;MedicineId&quot;),rs1.getInt(&quot;Quantity&quot;),rs1.getDouble(&quot;Price&quot;),rs1.getDate(&quot;Expiry&quot;).toLocalDate(),rs1.getDate(&quot;Manufactor&quot;).toLocalDate(),rs1.getString(&quot;Name&quot;),</span>
+<span class="fc" id="L53">                         rs1.getString(&quot;Status&quot;),rs1.getString(&quot;SupplyStatus&quot;),rs1.getString(&quot;Type&quot;),rs1.getInt(&quot;SupplierId&quot;));</span>
+<span class="fc" id="L54">                MedList.add(med);</span>
+<span class="fc" id="L55">            }</span>
+            
+<span class="fc" id="L57">            return MedList;</span>
+    }
+    
+    public ArrayList&lt;Medicine&gt; GetAddedMedicines() throws SQLException
+    {
+<span class="fc" id="L62">            Statement st1 = con.createStatement();</span>
+<span class="fc" id="L63">            String query1 = &quot;Select * From Medicine Where Status = 'Added'&quot;;</span>
+<span class="fc" id="L64">            ResultSet rs1 = st1.executeQuery(query1);</span>
+
+<span class="fc" id="L66">            ArrayList&lt;Medicine&gt; MedList = new ArrayList&lt;&gt;();</span>
+
+<span class="pc bpc" id="L68" title="1 of 2 branches missed.">            while(rs1.next())</span>
+            {
+<span class="nc" id="L70">                Medicine med = new Medicine(rs1.getInt(&quot;MedicineId&quot;),rs1.getInt(&quot;Quantity&quot;),rs1.getDouble(&quot;Price&quot;),rs1.getDate(&quot;Expiry&quot;).toLocalDate(),rs1.getDate(&quot;Manufactor&quot;).toLocalDate(),rs1.getString(&quot;Name&quot;),</span>
+<span class="nc" id="L71">                         rs1.getString(&quot;Status&quot;),rs1.getString(&quot;SupplyStatus&quot;),rs1.getString(&quot;Type&quot;),rs1.getInt(&quot;SupplierId&quot;));</span>
+<span class="nc" id="L72">                MedList.add(med);</span>
+<span class="nc" id="L73">            }</span>
+            
+<span class="fc" id="L75">            return MedList;</span>
+    }
+    
+    public ArrayList&lt;Medicine&gt; GetApprovedMedicines() throws SQLException
+    {
+<span class="fc" id="L80">            Statement st1 = con.createStatement();</span>
+<span class="fc" id="L81">            String query1 = &quot;Select * From Medicine Where Status = 'Approved'&quot;;</span>
+<span class="fc" id="L82">            ResultSet rs1 = st1.executeQuery(query1);</span>
+
+<span class="fc" id="L84">            ArrayList&lt;Medicine&gt; MedList = new ArrayList&lt;&gt;();</span>
+
+<span class="pc bpc" id="L86" title="1 of 2 branches missed.">            while(rs1.next())</span>
+            {
+<span class="nc" id="L88">                Medicine med = new Medicine(rs1.getInt(&quot;MedicineId&quot;),rs1.getInt(&quot;Quantity&quot;),rs1.getDouble(&quot;Price&quot;),rs1.getDate(&quot;Expiry&quot;).toLocalDate(),rs1.getDate(&quot;Manufactor&quot;).toLocalDate(),rs1.getString(&quot;Name&quot;),</span>
+<span class="nc" id="L89">                         rs1.getString(&quot;Status&quot;),rs1.getString(&quot;SupplyStatus&quot;),rs1.getString(&quot;Type&quot;),rs1.getInt(&quot;SupplierId&quot;));</span>
+<span class="nc" id="L90">                MedList.add(med);</span>
+<span class="nc" id="L91">            }</span>
+            
+<span class="fc" id="L93">            return MedList;</span>
+    }
+    
+    public ArrayList&lt;Medicine&gt; GetPendingMedicines() throws SQLException
+    {
+<span class="fc" id="L98">            Statement st1 = con.createStatement();</span>
+<span class="fc" id="L99">            String query1 = &quot;Select * From Medicine Where Status = 'Pending' OR Status = 'Rejected'&quot;;</span>
+<span class="fc" id="L100">            ResultSet rs1 = st1.executeQuery(query1);</span>
+
+<span class="fc" id="L102">            ArrayList&lt;Medicine&gt; MedList = new ArrayList&lt;&gt;();</span>
+
+<span class="fc bfc" id="L104" title="All 2 branches covered.">            while(rs1.next())</span>
+            {
+<span class="fc" id="L106">                Medicine med = new Medicine(rs1.getInt(&quot;MedicineId&quot;),rs1.getInt(&quot;Quantity&quot;),rs1.getDouble(&quot;Price&quot;),rs1.getDate(&quot;Expiry&quot;).toLocalDate(),rs1.getDate(&quot;Manufactor&quot;).toLocalDate(),rs1.getString(&quot;Name&quot;),</span>
+<span class="fc" id="L107">                         rs1.getString(&quot;Status&quot;),rs1.getString(&quot;SupplyStatus&quot;),rs1.getString(&quot;Type&quot;),rs1.getInt(&quot;SupplierId&quot;));</span>
+<span class="fc" id="L108">                MedList.add(med);</span>
+<span class="fc" id="L109">            }</span>
+            
+<span class="fc" id="L111">            return MedList;</span>
+    }
+    
+    public ArrayList&lt;Medicine&gt; GetSupMedicines(int Id) throws SQLException
+    {
+<span class="fc" id="L116">            Statement st1 = con.createStatement();</span>
+<span class="fc" id="L117">            String query1 = &quot;Select * From Medicine Where SupplierId = &quot; + Id;</span>
+<span class="fc" id="L118">            ResultSet rs1 = st1.executeQuery(query1);</span>
+
+<span class="fc" id="L120">            ArrayList&lt;Medicine&gt; MedList = new ArrayList&lt;&gt;();</span>
+
+<span class="fc bfc" id="L122" title="All 2 branches covered.">            while(rs1.next())</span>
+            {
+<span class="fc" id="L124">                Medicine med = new Medicine(rs1.getInt(&quot;MedicineId&quot;),rs1.getInt(&quot;Quantity&quot;),rs1.getDouble(&quot;Price&quot;),rs1.getDate(&quot;Expiry&quot;).toLocalDate(),rs1.getDate(&quot;Manufactor&quot;).toLocalDate(),rs1.getString(&quot;Name&quot;),</span>
+<span class="fc" id="L125">                         rs1.getString(&quot;Status&quot;),rs1.getString(&quot;SupplyStatus&quot;),rs1.getString(&quot;Type&quot;),rs1.getInt(&quot;SupplierId&quot;));</span>
+<span class="fc" id="L126">                MedList.add(med);</span>
+<span class="fc" id="L127">            }</span>
+            
+<span class="fc" id="L129">            return MedList;</span>
+    }
+    
+    public int getLastMedId() throws SQLException
+    {
+<span class="fc" id="L134">        Statement st1 = con.createStatement();</span>
+<span class="fc" id="L135">        String query1 = &quot;SELECT MAX(MedicineId) FROM Medicine&quot;;</span>
+<span class="fc" id="L136">        ResultSet rs1 = st1.executeQuery(query1);</span>
+
+<span class="fc" id="L138">        int lastId = 0;</span>
+<span class="pc bpc" id="L139" title="1 of 2 branches missed.">        if (rs1.next()) </span>
+        {
+<span class="fc" id="L141">            lastId = rs1.getInt(1);</span>
+        }
+        
+<span class="fc" id="L144">        return lastId;</span>
+    }
+    
+    public void AddMedicine(Medicine Med) throws SQLException
+    {
+<span class="fc" id="L149">        Statement st1 = con.createStatement();</span>
+        
+<span class="fc" id="L151">        PreparedStatement ps = con.prepareStatement(</span>
+        &quot;INSERT INTO Medicine (Name, Type, Quantity, Price, Expiry, Manufactor, Status, SupplyStatus, SupplierId) &quot; +
+        &quot;VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)&quot;);
+
+<span class="fc" id="L155">        ps.setString(1, Med.getName());</span>
+<span class="fc" id="L156">        ps.setString(2, Med.getType());</span>
+<span class="fc" id="L157">        ps.setInt(3, Med.getQuantity());</span>
+<span class="fc" id="L158">        ps.setDouble(4, Med.getPrice());</span>
+<span class="fc" id="L159">        ps.setDate(5, java.sql.Date.valueOf(Med.getExpiry())); </span>
+<span class="fc" id="L160">        ps.setDate(6, java.sql.Date.valueOf(Med.getManufactor()));</span>
+<span class="fc" id="L161">        ps.setString(7, Med.getStatus());</span>
+<span class="fc" id="L162">        ps.setString(8, Med.getSupplyStatus());</span>
+<span class="fc" id="L163">        ps.setInt(9, Med.getSup());</span>
+
+<span class="fc" id="L165">        ps.executeUpdate();</span>
+
+<span class="fc" id="L167">        System.out.println(&quot;Medicine Successfully Added&quot;);</span>
+
+<span class="fc" id="L169">    }</span>
+    
+    public void AddSoldMedicine(ArrayList&lt;SoldMedicine&gt; Meds) throws SQLException
+    {
+<span class="fc bfc" id="L173" title="All 2 branches covered.">        for(SoldMedicine Med: Meds)</span>
+        {
+<span class="fc" id="L175">            AddSoldMedicine(Med);</span>
+<span class="fc" id="L176">        }</span>
+<span class="fc" id="L177">    }</span>
+    
+    public void AddSoldMedicine(SoldMedicine Med) throws SQLException
+    {
+        
+<span class="fc" id="L182">        Statement st2 = con.createStatement();</span>
+        
+<span class="fc" id="L184">        String query1 = &quot;Select MedicineId, Quantity From SoldMedicine Where MedicineId = &quot; + Med.getMedicineId();</span>
+        
+<span class="fc" id="L186">        ResultSet rs1 = st2.executeQuery(query1);</span>
+
+<span class="fc bfc" id="L188" title="All 2 branches covered.">        if(rs1.next())</span>
+        {
+<span class="fc" id="L190">            query1 = &quot;Update SoldMedicine Set Quantity = &quot; + (rs1.getInt(&quot;Quantity&quot;) + Med.getQuantity()) + &quot; Where MedicineId = &quot; + Med.getMedicineId();</span>
+<span class="fc" id="L191">            st2.executeUpdate(query1);</span>
+            
+<span class="fc" id="L193">            return ;</span>
+        }
+        
+<span class="fc" id="L196">        Statement st1 = con.createStatement();</span>
+        
+<span class="fc" id="L198">        PreparedStatement ps = con.prepareStatement(</span>
+        &quot;INSERT INTO SoldMedicine (MedicineId,Name, Type, Quantity, Price, Expiry, Manufactor, Status, SupplyStatus, SupplierId, SupplierName) &quot; +
+        &quot;VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)&quot;);
+        
+<span class="fc" id="L202">        ps.setInt(1,Med.getMedicineId());</span>
+<span class="fc" id="L203">        ps.setString(2, Med.getName());</span>
+<span class="fc" id="L204">        ps.setString(3, Med.getType());</span>
+<span class="fc" id="L205">        ps.setInt(4, Med.getQuantity());</span>
+<span class="fc" id="L206">        ps.setDouble(5, Med.getPrice());</span>
+<span class="fc" id="L207">        ps.setDate(6, java.sql.Date.valueOf(Med.getExpiry())); </span>
+<span class="fc" id="L208">        ps.setDate(7, java.sql.Date.valueOf(Med.getManufactor()));</span>
+<span class="fc" id="L209">        ps.setString(8, Med.getStatus());</span>
+<span class="fc" id="L210">        ps.setString(9, Med.getSupplyStatus());</span>
+<span class="fc" id="L211">        ps.setInt(10, Med.getSup());</span>
+<span class="fc" id="L212">        ps.setString(11, Med.getSupName());</span>
+
+<span class="fc" id="L214">        ps.executeUpdate();</span>
+
+<span class="fc" id="L216">        System.out.println(&quot;SoldMedicine Successfully Added&quot;);</span>
+
+<span class="fc" id="L218">    }</span>
+    
+    public void RemoveMedicine(Medicine Med) throws SQLException
+    {
+<span class="fc" id="L222">        Statement st1 = con.createStatement();</span>
+<span class="fc" id="L223">        String query1 = &quot;Update Medicine Set Status = 'Approved' Where MedicineId = &quot; + Med.getMedicineId();</span>
+<span class="fc" id="L224">        st1.executeUpdate(query1);</span>
+        
+<span class="fc" id="L226">        System.out.println(&quot;Medicine Successfully Removed&quot;);</span>
+        
+<span class="fc" id="L228">    }</span>
+    
+    
+    public void DeleteMedicine(Medicine Med) throws SQLException
+    {
+<span class="fc" id="L233">        Statement st1 = con.createStatement();</span>
+<span class="fc" id="L234">        String query1 = &quot;Delete From Medicine Where MedicineId = &quot; + Med.getMedicineId();</span>
+<span class="fc" id="L235">        st1.executeUpdate(query1);</span>
+        
+<span class="fc" id="L237">        System.out.println(&quot;Medicine Successfully Deleted&quot;);</span>
+        
+<span class="fc" id="L239">    }</span>
+    
+    public void AddMedicineStore(Medicine Med) throws SQLException
+    {
+<span class="fc" id="L243">        Statement st1 = con.createStatement();</span>
+<span class="fc" id="L244">        String query1 = &quot;Update Medicine Set Status = 'Added' Where MedicineId = &quot; + Med.getMedicineId();</span>
+<span class="fc" id="L245">        st1.executeUpdate(query1);</span>
+        
+<span class="fc" id="L247">        System.out.println(&quot;Medicine Successfully Added to Store&quot;);</span>
+<span class="fc" id="L248">    }</span>
+    
+    public void RestockMedicine(Medicine Med) throws SQLException
+    {
+<span class="fc" id="L252">        Statement st1 = con.createStatement();</span>
+<span class="fc" id="L253">        String query1 = &quot;Update Medicine Set Quantity = &quot; + Med.getQuantity() + &quot; Where MedicineId = &quot; + Med.getMedicineId();</span>
+<span class="fc" id="L254">        st1.executeUpdate(query1);</span>
+        
+<span class="fc" id="L256">        System.out.println(&quot;Medicine Successfully Restocked&quot;);</span>
+<span class="fc" id="L257">    }</span>
+    
+    public ArrayList&lt;InventoryManager&gt; GetAllManagers() throws SQLException
+    {
+<span class="fc" id="L261">       Statement st1 = con.createStatement();</span>
+<span class="fc" id="L262">        String query1 = &quot;Select * From UserList Join InventoryManager on UserList.UserId = InventoryManager.UserId&quot;;</span>
+<span class="fc" id="L263">        ResultSet rs1 = st1.executeQuery(query1);</span>
+        
+      
+<span class="fc" id="L266">        ArrayList&lt;Medicine&gt; MedList = GetAllMedicines();</span>
+<span class="fc" id="L267">        ArrayList&lt;InventoryManager&gt; Manager = new ArrayList&lt;&gt;();</span>
+
+<span class="pc bpc" id="L269" title="1 of 2 branches missed.">        while(rs1.next())</span>
+        {
+<span class="nc" id="L271">            InventoryManager Man = new InventoryManager(</span>
+<span class="nc" id="L272">                rs1.getString(&quot;Username&quot;),</span>
+<span class="nc" id="L273">                rs1.getString(&quot;Password&quot;),</span>
+<span class="nc" id="L274">                rs1.getString(&quot;Name&quot;),</span>
+<span class="nc" id="L275">                rs1.getString(&quot;Gender&quot;),</span>
+<span class="nc" id="L276">                rs1.getInt(&quot;Age&quot;),</span>
+<span class="nc" id="L277">                rs1.getString(&quot;Email&quot;),</span>
+<span class="nc" id="L278">                rs1.getDate(&quot;DOB&quot;).toLocalDate(),</span>
+<span class="nc" id="L279">                rs1.getInt(&quot;IMId&quot;),</span>
+<span class="nc" id="L280">                rs1.getString(&quot;Status&quot;),</span>
+                MedList
+            );
+
+<span class="nc" id="L284">            Manager.add(Man);</span>
+<span class="nc" id="L285">        }</span>
+
+<span class="fc" id="L287">        System.out.println(&quot;InventoryManagers Successfully Fetched&quot;);</span>
+        
+<span class="fc" id="L289">        return Manager;</span>
+    }
+    
+    public void ApproveManager(int Id) throws SQLException
+    {
+<span class="fc" id="L294">        Statement st1 = con.createStatement();</span>
+<span class="fc" id="L295">        String query1 = &quot;Update InventoryManager Set Status = 'Approved' Where ImId = &quot; + Id;</span>
+<span class="fc" id="L296">        st1.executeUpdate(query1);</span>
+        
+<span class="fc" id="L298">        System.out.println(&quot;InventoryManager Successfully Approved&quot;);</span>
+<span class="fc" id="L299">    }</span>
+    
+    public void RejectManager(int Id) throws SQLException
+    {
+<span class="fc" id="L303">        Statement st1 = con.createStatement();</span>
+<span class="fc" id="L304">        String query1 = &quot;Update InventoryManager Set Status = 'Rejected' Where ImId = &quot; + Id;</span>
+<span class="fc" id="L305">        st1.executeUpdate(query1);</span>
+        
+<span class="fc" id="L307">        System.out.println(&quot;InventoryManager Successfully Rejected&quot;);</span>
+<span class="fc" id="L308">    }</span>
+    
+    public void DeleteManager(int Id) throws SQLException
+    {
+<span class="fc" id="L312">        Statement st1 = con.createStatement();</span>
+<span class="fc" id="L313">        String query1 = &quot;Delete UserList From UserList Join InventoryManager on InventoryManager.UserId = UserList.UserId Where InventoryManager.ImId = &quot; + Id;</span>
+<span class="fc" id="L314">        st1.executeUpdate(query1);</span>
+        
+<span class="fc" id="L316">        System.out.println(&quot;InventoryManager Successfully Deleted&quot;);</span>
+<span class="fc" id="L317">    }</span>
+    
+    public ArrayList&lt;Supplier&gt; GetAllSupplier() throws SQLException
+    {
+<span class="fc" id="L321">        Statement st1 = con.createStatement();</span>
+<span class="fc" id="L322">        String query1 = &quot;Select * From UserList Join Supplier on UserList.UserId = Supplier.UserId&quot;;</span>
+<span class="fc" id="L323">        ResultSet rs1 = st1.executeQuery(query1);</span>
+        
+<span class="fc" id="L325">        ArrayList&lt;Supplier&gt; Manager = new ArrayList&lt;&gt;();</span>
+
+<span class="fc bfc" id="L327" title="All 2 branches covered.">        while(rs1.next())</span>
+        {
+<span class="fc" id="L329">            Supplier Man = new Supplier(</span>
+<span class="fc" id="L330">                rs1.getString(&quot;Username&quot;),</span>
+<span class="fc" id="L331">                rs1.getString(&quot;Password&quot;),</span>
+<span class="fc" id="L332">                rs1.getString(&quot;Name&quot;),</span>
+<span class="fc" id="L333">                rs1.getString(&quot;Gender&quot;),</span>
+<span class="fc" id="L334">                rs1.getInt(&quot;Age&quot;),</span>
+<span class="fc" id="L335">                rs1.getString(&quot;Email&quot;),</span>
+<span class="fc" id="L336">                rs1.getDate(&quot;DOB&quot;).toLocalDate(),</span>
+<span class="fc" id="L337">                rs1.getInt(&quot;SupId&quot;),</span>
+<span class="fc" id="L338">                rs1.getString(&quot;LicenseNumber&quot;),</span>
+<span class="fc" id="L339">                rs1.getString(&quot;Status&quot;)</span>
+            );
+            
+<span class="fc" id="L342">            ArrayList&lt;Medicine&gt; MedList = GetSupMedicines(rs1.getInt(&quot;SupId&quot;));</span>
+<span class="fc" id="L343">            Man.setSupMed(MedList);</span>
+            
+<span class="fc" id="L345">            Manager.add(Man);</span>
+<span class="fc" id="L346">        }</span>
+
+<span class="fc" id="L348">        System.out.println(&quot;Suppliers Successfully Fetched&quot;);</span>
+        
+<span class="fc" id="L350">        return Manager;</span>
+    }
+    public void ApproveSupplier(int Id) throws SQLException 
+    {
+<span class="fc" id="L354">        Statement st1 = con.createStatement();</span>
+<span class="fc" id="L355">        String query1 = &quot;UPDATE Supplier SET Status = 'Approved' WHERE SupId = &quot; + Id;</span>
+<span class="fc" id="L356">        st1.executeUpdate(query1);</span>
+
+<span class="fc" id="L358">        System.out.println(&quot;Supplier Successfully Approved&quot;);</span>
+<span class="fc" id="L359">    }</span>
+
+    public void RejectSupplier(int Id) throws SQLException {
+<span class="fc" id="L362">        Statement st1 = con.createStatement();</span>
+<span class="fc" id="L363">        String query1 = &quot;UPDATE Supplier SET Status = 'Rejected' WHERE SupId = &quot; + Id;</span>
+<span class="fc" id="L364">        st1.executeUpdate(query1);</span>
+
+<span class="fc" id="L366">        System.out.println(&quot;Supplier Successfully Rejected&quot;);</span>
+<span class="fc" id="L367">    }</span>
+
+    public void DeleteSupplier(int Id) throws SQLException {
+<span class="fc" id="L370">        Statement st1 = con.createStatement();</span>
+<span class="fc" id="L371">        String query1 = &quot;DELETE UserList FROM UserList JOIN Supplier ON Supplier.UserId = UserList.UserId WHERE Supplier.SupId = &quot; + Id;</span>
+<span class="fc" id="L372">        st1.executeUpdate(query1);</span>
+
+<span class="fc" id="L374">        System.out.println(&quot;Supplier Successfully Deleted&quot;);</span>
+<span class="fc" id="L375">    }</span>
+    
+    public ArrayList&lt;Pharmacist&gt; GetAllPharmacist() throws SQLException 
+    {
+<span class="nc" id="L379">        Statement st1 = con.createStatement();</span>
+<span class="nc" id="L380">        String query1 = &quot;SELECT * FROM UserList JOIN Pharmacist ON UserList.UserId = Pharmacist.UserId&quot;;</span>
+<span class="nc" id="L381">        ResultSet rs1 = st1.executeQuery(query1);</span>
+
+<span class="nc" id="L383">        ArrayList&lt;Pharmacist&gt; pharmacistList = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L384">        ArrayList&lt;Prescription&gt; Pres = GetAllPrescriptions();</span>
+
+<span class="nc bnc" id="L386" title="All 2 branches missed.">        while (rs1.next()) {</span>
+<span class="nc" id="L387">            Pharmacist pharmacist = new Pharmacist(</span>
+<span class="nc" id="L388">                rs1.getString(&quot;Username&quot;),</span>
+<span class="nc" id="L389">                rs1.getString(&quot;Password&quot;),</span>
+<span class="nc" id="L390">                rs1.getString(&quot;Name&quot;),</span>
+<span class="nc" id="L391">                rs1.getString(&quot;Gender&quot;),</span>
+<span class="nc" id="L392">                rs1.getInt(&quot;Age&quot;),</span>
+<span class="nc" id="L393">                rs1.getString(&quot;Email&quot;),</span>
+<span class="nc" id="L394">                rs1.getDate(&quot;DOB&quot;).toLocalDate(),</span>
+<span class="nc" id="L395">                rs1.getInt(&quot;PharmaId&quot;),</span>
+<span class="nc" id="L396">                rs1.getString(&quot;LicenseNumber&quot;),</span>
+<span class="nc" id="L397">                rs1.getString(&quot;Status&quot;)</span>
+            );
+
+<span class="nc" id="L400">            pharmacist.setPrescriptions(Pres);</span>
+            
+<span class="nc" id="L402">            pharmacistList.add(pharmacist);</span>
+<span class="nc" id="L403">        }</span>
+
+<span class="nc" id="L405">        System.out.println(&quot;Pharmacists Successfully Fetched&quot;);</span>
+
+<span class="nc" id="L407">        return pharmacistList;</span>
+    }
+    
+    public ArrayList&lt;Medicine&gt; GetPresMed(int Pid) throws SQLException
+    {
+<span class="nc" id="L412">        Statement st1 = con.createStatement();</span>
+<span class="nc" id="L413">        String query1 = &quot;Select Medicine.* From Medicine Join PresMed on PresMed.MedicineId = Medicine.MedicineId &quot;</span>
+                + &quot;where PresMed.PresciId = &quot; + Pid;
+<span class="nc" id="L415">        ResultSet rs1 = st1.executeQuery(query1);</span>
+
+<span class="nc" id="L417">        ArrayList&lt;Medicine&gt; MedList = new ArrayList&lt;&gt;();</span>
+
+<span class="nc bnc" id="L419" title="All 2 branches missed.">        while(rs1.next())</span>
+        {
+<span class="nc" id="L421">            Medicine med = new Medicine(rs1.getInt(&quot;MedicineId&quot;),rs1.getInt(&quot;Quantity&quot;),rs1.getDouble(&quot;Price&quot;),rs1.getDate(&quot;Expiry&quot;).toLocalDate(),rs1.getDate(&quot;Manufactor&quot;).toLocalDate(),rs1.getString(&quot;Name&quot;),</span>
+<span class="nc" id="L422">                     rs1.getString(&quot;Status&quot;),rs1.getString(&quot;SupplyStatus&quot;),rs1.getString(&quot;Type&quot;),rs1.getInt(&quot;SupplierId&quot;));</span>
+<span class="nc" id="L423">            MedList.add(med);</span>
+<span class="nc" id="L424">        }</span>
+
+<span class="nc" id="L426">        return MedList;</span>
+    }
+    
+    public ArrayList&lt;Prescription&gt; GetAllPrescriptions() throws SQLException
+    {
+<span class="nc" id="L431">        Statement st = con.createStatement();</span>
+
+<span class="nc" id="L433">        String query = &quot;SELECT * FROM Prescription&quot;;</span>
+
+<span class="nc" id="L435">        ResultSet rs = st.executeQuery(query);</span>
+        
+<span class="nc" id="L437">        ArrayList&lt;Prescription&gt; prescriptions = new ArrayList&lt;&gt;();</span>
+        
+<span class="nc bnc" id="L439" title="All 2 branches missed.">        while (rs.next()) </span>
+        {
+<span class="nc" id="L441">            int presciId = rs.getInt(&quot;PresciId&quot;);</span>
+<span class="nc" id="L442">            int quantity = rs.getInt(&quot;Quantity&quot;);</span>
+<span class="nc" id="L443">            LocalDate addDate = rs.getDate(&quot;AddDate&quot;).toLocalDate();  </span>
+<span class="nc" id="L444">            String patientName = rs.getString(&quot;PatientName&quot;);</span>
+<span class="nc" id="L445">            String type = rs.getString(&quot;Type&quot;);</span>
+<span class="nc" id="L446">            String doctorName = rs.getString(&quot;DoctorName&quot;);</span>
+<span class="nc" id="L447">            String hospitalName = rs.getString(&quot;HospitalName&quot;);</span>
+
+<span class="nc" id="L449">            Prescription p = new Prescription(presciId, quantity, addDate, patientName, type, doctorName, hospitalName);</span>
+            
+<span class="nc" id="L451">            ArrayList&lt;Medicine&gt; Meds = GetPresMed(presciId);</span>
+            
+<span class="nc" id="L453">            p.setMeds(Meds);</span>
+            
+<span class="nc" id="L455">            prescriptions.add(p);</span>
+<span class="nc" id="L456">        }</span>
+        
+<span class="nc" id="L458">        System.out.println(&quot;Prescriptions Successfully Fetched&quot;);</span>
+        
+<span class="nc" id="L460">        return prescriptions;</span>
+    }
+    
+    public void RemovePrescription(Prescription Pres) throws SQLException
+    {
+<span class="fc" id="L465">        Statement st1 = con.createStatement();</span>
+<span class="fc" id="L466">        String query1 = &quot;Delete From Prescription Where PresciId = &quot; + Pres.getPresciId();</span>
+<span class="fc" id="L467">        st1.executeUpdate(query1);</span>
+        
+<span class="fc" id="L469">        System.out.println(&quot;Prescription Successfully Deleted&quot;);</span>
+<span class="fc" id="L470">    }</span>
+    
+    public ArrayList&lt;Owner&gt; GetAllOwner() throws SQLException 
+    {
+<span class="nc" id="L474">        Statement st1 = con.createStatement();</span>
+<span class="nc" id="L475">        String query1 = &quot;SELECT * FROM UserList JOIN Owner ON UserList.UserId = Owner.UserId&quot;;</span>
+<span class="nc" id="L476">        ResultSet rs1 = st1.executeQuery(query1);</span>
+
+<span class="nc" id="L478">        ArrayList&lt;Owner&gt; ownerList = new ArrayList&lt;&gt;();</span>
+
+<span class="nc bnc" id="L480" title="All 2 branches missed.">        while (rs1.next()) {</span>
+<span class="nc" id="L481">            Owner owner = new Owner(</span>
+<span class="nc" id="L482">                rs1.getString(&quot;Username&quot;),</span>
+<span class="nc" id="L483">                rs1.getString(&quot;Password&quot;),</span>
+<span class="nc" id="L484">                rs1.getString(&quot;Name&quot;),</span>
+<span class="nc" id="L485">                rs1.getString(&quot;Gender&quot;),</span>
+<span class="nc" id="L486">                rs1.getInt(&quot;Age&quot;),</span>
+<span class="nc" id="L487">                rs1.getString(&quot;Email&quot;),</span>
+<span class="nc" id="L488">                rs1.getDate(&quot;DOB&quot;).toLocalDate(),</span>
+<span class="nc" id="L489">                rs1.getInt(&quot;OwnerId&quot;)</span>
+            );
+
+<span class="nc" id="L492">            ownerList.add(owner);</span>
+<span class="nc" id="L493">        }</span>
+
+<span class="nc" id="L495">        System.out.println(&quot;Owners Successfully Fetched&quot;);</span>
+
+<span class="nc" id="L497">        return ownerList;</span>
+    }
+
+    
+    public void ApprovePharmacist(int Id) throws SQLException {
+<span class="fc" id="L502">        Statement st1 = con.createStatement();</span>
+<span class="fc" id="L503">        String query1 = &quot;UPDATE Pharmacist SET Status = 'Approved' WHERE PharmaId = &quot; + Id;</span>
+<span class="fc" id="L504">        st1.executeUpdate(query1);</span>
+
+<span class="fc" id="L506">        System.out.println(&quot;Pharmacist Successfully Approved&quot;);</span>
+<span class="fc" id="L507">    }</span>
+
+    public void RejectPharmacist(int Id) throws SQLException {
+<span class="fc" id="L510">        Statement st1 = con.createStatement();</span>
+<span class="fc" id="L511">        String query1 = &quot;UPDATE Pharmacist SET Status = 'Rejected' WHERE PharmaId = &quot; + Id;</span>
+<span class="fc" id="L512">        st1.executeUpdate(query1);</span>
+
+<span class="fc" id="L514">        System.out.println(&quot;Pharmacist Successfully Rejected&quot;);</span>
+<span class="fc" id="L515">    }</span>
+
+    public void DeletePharmacist(int Id) throws SQLException {
+<span class="fc" id="L518">        Statement st1 = con.createStatement();</span>
+<span class="fc" id="L519">        String query1 = &quot;DELETE UserList FROM UserList JOIN Pharmacist ON Pharmacist.UserId = UserList.UserId WHERE Pharmacist.PharmaId = &quot; + Id;</span>
+<span class="fc" id="L520">        st1.executeUpdate(query1);</span>
+
+<span class="fc" id="L522">        System.out.println(&quot;Pharmacist Successfully Deleted&quot;);</span>
+<span class="fc" id="L523">    }</span>
+    
+    public void ApproveMedicine(int Id) throws SQLException
+    {
+<span class="fc" id="L527">        Statement st1 = con.createStatement();</span>
+<span class="fc" id="L528">        String query1 = &quot;Update Medicine Set Status = 'Approved' Where MedicineId = &quot; + Id;</span>
+<span class="fc" id="L529">        st1.executeUpdate(query1);</span>
+        
+<span class="fc" id="L531">        System.out.println(&quot;Medicine Successfully Approved&quot;);</span>
+<span class="fc" id="L532">    }</span>
+    
+    public void RejectMedicine(int Id) throws SQLException
+    {
+<span class="fc" id="L536">        Statement st1 = con.createStatement();</span>
+<span class="fc" id="L537">        String query1 = &quot;Update Medicine Set Status = 'Rejected' Where MedicineId = &quot; + Id;</span>
+<span class="fc" id="L538">        st1.executeUpdate(query1);</span>
+        
+<span class="fc" id="L540">        System.out.println(&quot;Medicine Successfully Rejected&quot;);</span>
+<span class="fc" id="L541">    }</span>
+    
+    public void StartSupply(int Id) throws SQLException
+    {
+<span class="fc" id="L545">        Statement st1 = con.createStatement();</span>
+<span class="fc" id="L546">        String query1 = &quot;Update Medicine Set SupplyStatus = 'Started' Where MedicineId = &quot; + Id;</span>
+<span class="fc" id="L547">        st1.executeUpdate(query1);</span>
+        
+<span class="fc" id="L549">        System.out.println(&quot;Medicine Successfully Started&quot;);</span>
+<span class="fc" id="L550">    }</span>
+    public void StopSupply(int Id) throws SQLException
+    {
+<span class="fc" id="L553">        Statement st1 = con.createStatement();</span>
+<span class="fc" id="L554">        String query1 = &quot;Update Medicine Set SupplyStatus = 'Stopped' Where MedicineId = &quot; + Id;</span>
+<span class="fc" id="L555">        st1.executeUpdate(query1);</span>
+        
+<span class="fc" id="L557">        System.out.println(&quot;Medicine Successfully Stopped&quot;);</span>
+<span class="fc" id="L558">    }</span>
+    
+    public int getLastPrescriptionId() throws SQLException 
+    {
+<span class="fc" id="L562">        Statement st1 = con.createStatement();</span>
+<span class="fc" id="L563">        String query1 = &quot;SELECT MAX(PresciId) FROM Prescription&quot;;  </span>
+<span class="fc" id="L564">        ResultSet rs1 = st1.executeQuery(query1);</span>
+
+<span class="fc" id="L566">        int lastId = 0;</span>
+<span class="pc bpc" id="L567" title="1 of 2 branches missed.">        if (rs1.next()) </span>
+        {
+<span class="fc" id="L569">            lastId = rs1.getInt(1);  </span>
+        }
+
+<span class="fc" id="L572">        return lastId;</span>
+    }
+    
+    public void AddPrescription(Prescription Pres) throws SQLException 
+    {
+<span class="fc" id="L577">        String query = &quot;INSERT INTO Prescription (PresciId, Quantity, AddDate, PatientName, Type, DoctorName, HospitalName) &quot; +</span>
+                   &quot;VALUES (?, ?, ?, ?, ?, ?, ?)&quot;;
+
+<span class="fc" id="L580">        try (PreparedStatement stmt = con.prepareStatement(query)) </span>
+        {
+<span class="fc" id="L582">            stmt.setInt(1, Pres.getPresciId());</span>
+<span class="fc" id="L583">            stmt.setInt(2, Pres.getQuantity());          // Quantity</span>
+<span class="fc" id="L584">            stmt.setDate(3, Date.valueOf(Pres.getAddDate()));  // Add Date (LocalDate to SQL Date)</span>
+<span class="fc" id="L585">            stmt.setString(4, Pres.getPatientName());    // Patient Name</span>
+<span class="fc" id="L586">            stmt.setString(5, Pres.getType());           // Type</span>
+<span class="fc" id="L587">            stmt.setString(6, Pres.getDoctorName());     // Doctor Name</span>
+<span class="fc" id="L588">            stmt.setString(7, Pres.getHospitalName()); </span>
+
+<span class="fc" id="L590">            int rowsAffected = stmt.executeUpdate();</span>
+            
+<span class="fc" id="L592">            AddPrescMed(Pres.getPresciId(),Pres.getMeds());</span>
+            
+            
+<span class="pc bpc" id="L595" title="1 of 2 branches missed.">            if (rowsAffected &gt; 0) </span>
+            {
+<span class="fc" id="L597">                System.out.println(&quot;Prescription successfully added.&quot;);</span>
+            } 
+            else 
+            {
+<span class="nc" id="L601">                System.out.println(&quot;Failed to add prescription.&quot;);</span>
+            }
+        } 
+<span class="fc" id="L604">        catch (SQLException e) </span>
+        {
+<span class="fc" id="L606">            System.out.println(&quot;Error adding prescription: &quot; + e.getMessage());</span>
+<span class="fc" id="L607">            throw e; </span>
+<span class="fc" id="L608">        }</span>
+<span class="fc" id="L609">    }</span>
+
+    public void AddPrescMed(int PresciId, ArrayList&lt;Medicine&gt; Med) throws SQLException
+    {
+<span class="fc" id="L613">        String query = &quot;INSERT INTO PresMed (PresciId, MedicineId) VALUES (?, ?)&quot;;</span>
+
+<span class="fc" id="L615">        try (PreparedStatement stmt = con.prepareStatement(query)) </span>
+        {
+<span class="fc bfc" id="L617" title="All 2 branches covered.">            for (Medicine medicine : Med) </span>
+            {
+<span class="fc" id="L619">                stmt.setInt(1, PresciId);  </span>
+<span class="fc" id="L620">                stmt.setInt(2, medicine.getMedicineId()); </span>
+
+<span class="fc" id="L622">                stmt.addBatch(); </span>
+<span class="fc" id="L623">            }</span>
+
+<span class="fc" id="L625">            int[] rowsAffected = stmt.executeBatch();</span>
+
+<span class="fc" id="L627">            System.out.println(&quot;Successfully added &quot; + rowsAffected.length + &quot; medicines to PresMed.&quot;);</span>
+        } 
+<span class="fc" id="L629">        catch (SQLException e) </span>
+        {
+<span class="fc" id="L631">            System.out.println(&quot;Error adding medicines to PresMed: &quot; + e.getMessage());</span>
+<span class="fc" id="L632">            throw e;  // Rethrow the exception</span>
+<span class="fc" id="L633">        }</span>
+<span class="fc" id="L634">    }</span>
+};
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202504151049</span></div></body></html>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>InventoryManager.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Backend Coverage</a> &gt; <a href="index.source.html" class="el_package">Backend</a> &gt; <span class="el_source">InventoryManager.java</span></div><h1>InventoryManager.java</h1><pre class="source lang-java linenums">package Backend;
+
+import Database.DBHandler;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+
+public class InventoryManager extends User
+{
+	int IMId;
+	String Status;
+	ArrayList&lt;Medicine&gt; Medicines;
+<span class="fc" id="L13">	DBHandler DB = DBHandler.getInstance();</span>
+        
+	public InventoryManager()
+<span class="fc" id="L16">	{</span>
+<span class="fc" id="L17">		Medicines = new ArrayList&lt;Medicine&gt;();</span>
+<span class="fc" id="L18">	}</span>
+	
+	public InventoryManager(String Us, String Pass, String Nam, String Gender1, int age1, String Ema,
+			LocalDate DateofBirth, int iMId, String status, ArrayList&lt;Medicine&gt; medicines) 
+	{
+<span class="fc" id="L23">		super(Us, Pass, Nam, Gender1, age1, Ema, DateofBirth);</span>
+<span class="fc" id="L24">		IMId = iMId;</span>
+<span class="fc" id="L25">		Status = status;</span>
+<span class="fc" id="L26">		Medicines = medicines;</span>
+<span class="fc" id="L27">	}</span>
+        
+        public String getStatus()
+        {
+<span class="fc" id="L31">            return Status;</span>
+        }
+	
+        public int getImId()
+        {
+<span class="fc" id="L36">            return IMId;</span>
+        }
+        
+	public void AddMedicine(Medicine Med) throws SQLException
+	{
+<span class="fc bfc" id="L41" title="All 2 branches covered.">		for(Medicine Med1 : Medicines)</span>
+		{
+<span class="fc bfc" id="L43" title="All 2 branches covered.">			if(Med1 == Med)</span>
+			{
+<span class="fc" id="L45">				Med1.setStatus(&quot;Added&quot;);</span>
+			}
+<span class="fc" id="L47">		}</span>
+		
+<span class="fc" id="L49">                DB.AddMedicineStore(Med);</span>
+<span class="fc" id="L50">	}</span>
+	
+	public void RemoveMedicine(Medicine Med) throws SQLException
+	{
+<span class="fc bfc" id="L54" title="All 2 branches covered.">		for(Medicine Med1 : Medicines)</span>
+		{
+<span class="fc bfc" id="L56" title="All 2 branches covered.">			if(Med1 == Med)</span>
+			{
+<span class="fc" id="L58">				Med1.setStatus(&quot;Approved&quot;);</span>
+			}
+<span class="fc" id="L60">		}</span>
+<span class="fc" id="L61">                DB.RemoveMedicine(Med);</span>
+<span class="fc" id="L62">	}</span>
+        
+        public void DeleteMedicine(Medicine Med) throws SQLException
+	{
+<span class="fc" id="L66">            DB.DeleteMedicine(Med);</span>
+<span class="fc" id="L67">            Medicines = DB.GetAllMedicines();</span>
+<span class="fc" id="L68">	}</span>
+	
+	public ArrayList&lt;Medicine&gt; IdentifyExpired()
+	{
+<span class="fc" id="L72">		ArrayList&lt;Medicine&gt; Expired = new ArrayList&lt;Medicine&gt;();</span>
+		
+<span class="fc bfc" id="L74" title="All 2 branches covered.">		for(Medicine Med: Medicines)</span>
+		{
+<span class="pc bpc" id="L76" title="1 of 4 branches missed.">                        if (Med.getExpiry().isBefore(LocalDate.now()) &amp;&amp; !Med.getStatus().equalsIgnoreCase(&quot;Pending&quot;)) </span>
+			{
+<span class="fc" id="L78">                            Expired.add(Med);</span>
+			}
+<span class="fc" id="L80">		}</span>
+		
+<span class="fc" id="L82">		return Expired;</span>
+	}
+	
+	public void Restock(int MedId, int quantity) throws SQLException
+	{
+<span class="fc bfc" id="L87" title="All 2 branches covered.">		for(Medicine Med1: Medicines)</span>
+		{
+<span class="pc bpc" id="L89" title="1 of 2 branches missed.">			if(Med1.getMedicineId() == MedId)</span>
+			{
+<span class="fc" id="L91">                            int Quan = Med1.getQuantity();</span>
+<span class="fc" id="L92">                            Quan += quantity;</span>
+<span class="fc" id="L93">                            Med1.setQuantity(Quan);</span>
+<span class="fc" id="L94">                            DB.RestockMedicine(Med1);</span>
+<span class="fc" id="L95">                            break;</span>
+			}
+<span class="nc" id="L97">		}</span>
+<span class="fc" id="L98">	}</span>
+        public ArrayList&lt;Medicine&gt; getMedicines()
+        {
+<span class="fc" id="L101">            return Medicines;</span>
+        }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202504151049</span></div></body></html>

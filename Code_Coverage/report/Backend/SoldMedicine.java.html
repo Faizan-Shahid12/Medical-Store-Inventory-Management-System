@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SoldMedicine.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Backend Coverage</a> &gt; <a href="index.source.html" class="el_package">Backend</a> &gt; <span class="el_source">SoldMedicine.java</span></div><h1>SoldMedicine.java</h1><pre class="source lang-java linenums">package Backend;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+
+public class SoldMedicine 
+{
+	int MedicineId;
+	int Quantity;
+	double Price;
+	LocalDate Expiry;
+	LocalDate Manufactor;
+	String Name;
+<span class="pc" id="L14">	String Status = &quot;Pending&quot;;</span>
+<span class="pc" id="L15">	String SupplyStatus = &quot;Started&quot;;</span>
+	String Type;
+        int SupId;
+	String SupName; 
+	
+	// Status = Pending, Approved, Added
+	// SupplyStatus = Started, Stopped
+	
+	public SoldMedicine()
+<span class="nc" id="L24">	{</span>
+		
+<span class="nc" id="L26">	}</span>
+
+	public SoldMedicine(int medicineId, int quantity, double price, LocalDate expiry, LocalDate manufactor, String name,
+			String status, String supplyStatus, String type, int sup, String Sup) 
+	{
+<span class="nc" id="L31">		super();</span>
+<span class="nc" id="L32">		MedicineId = medicineId;</span>
+<span class="nc" id="L33">		Quantity = quantity;</span>
+<span class="nc" id="L34">		Price = price;</span>
+<span class="nc" id="L35">		Expiry = expiry;</span>
+<span class="nc" id="L36">		Manufactor = manufactor;</span>
+<span class="nc" id="L37">		Name = name;</span>
+<span class="nc" id="L38">		Status = status;</span>
+<span class="nc" id="L39">		SupplyStatus = supplyStatus;</span>
+<span class="nc" id="L40">		Type = type;</span>
+<span class="nc" id="L41">		SupId = sup;</span>
+<span class="nc" id="L42">                SupName = Sup;</span>
+<span class="nc" id="L43">	}</span>
+        
+        public SoldMedicine(Medicine other,String SupName) 
+<span class="fc" id="L46">        {</span>
+<span class="fc" id="L47">            this.MedicineId = other.MedicineId;</span>
+<span class="fc" id="L48">            this.Quantity = other.Quantity;</span>
+<span class="fc" id="L49">            this.Price = other.Price;</span>
+<span class="fc" id="L50">            this.Expiry = other.Expiry;</span>
+<span class="fc" id="L51">            this.Manufactor = other.Manufactor;</span>
+<span class="fc" id="L52">            this.Name = other.Name;</span>
+<span class="fc" id="L53">            this.Status = other.Status;</span>
+<span class="fc" id="L54">            this.SupplyStatus = other.SupplyStatus;</span>
+<span class="fc" id="L55">            this.Type = other.Type;</span>
+<span class="fc" id="L56">            this.SupId = other.SupId;</span>
+<span class="fc" id="L57">            this.SupName = SupName;</span>
+<span class="fc" id="L58">        }</span>
+
+        
+        public String getSupplierName(ArrayList&lt;Supplier&gt; SupList)
+        {
+<span class="fc" id="L63">            String Name = &quot;&quot;;</span>
+            
+<span class="fc bfc" id="L65" title="All 2 branches covered.">            for(Supplier Sup: SupList)</span>
+            {
+<span class="fc bfc" id="L67" title="All 2 branches covered.">                if(Sup.getSupId() == SupId)</span>
+                {
+<span class="fc" id="L69">                    Name = Sup.getName();</span>
+<span class="fc" id="L70">                    break;</span>
+                }
+<span class="fc" id="L72">            }</span>
+            
+            
+<span class="fc" id="L75">            return Name;</span>
+        }
+        
+        
+	public int getMedicineId() {
+<span class="fc" id="L80">		return MedicineId;</span>
+	}
+
+	public void setMedicineId(int medicineId) {
+<span class="nc" id="L84">		MedicineId = medicineId;</span>
+<span class="nc" id="L85">	}</span>
+
+	public int getQuantity() {
+<span class="fc" id="L88">		return Quantity;</span>
+	}
+
+	public void setQuantity(int quantity) {
+<span class="fc" id="L92">		Quantity = quantity;</span>
+<span class="fc" id="L93">	}</span>
+
+	public double getPrice() {
+<span class="fc" id="L96">		return Price;</span>
+	}
+
+	public void setPrice(double price) {
+<span class="fc" id="L100">		Price = price;</span>
+<span class="fc" id="L101">	}</span>
+
+	public LocalDate getExpiry() {
+<span class="fc" id="L104">		return Expiry;</span>
+	}
+
+	public void setExpiry(LocalDate expiry) {
+<span class="fc" id="L108">		Expiry = expiry;</span>
+<span class="fc" id="L109">	}</span>
+
+	public LocalDate getManufactor() {
+<span class="fc" id="L112">		return Manufactor;</span>
+	}
+
+	public void setManufactor(LocalDate manufactor) {
+<span class="fc" id="L116">		Manufactor = manufactor;</span>
+<span class="fc" id="L117">	}</span>
+
+	public String getName() {
+<span class="fc" id="L120">		return Name;</span>
+	}
+
+	public void setName(String name) {
+<span class="fc" id="L124">		Name = name;</span>
+<span class="fc" id="L125">	}</span>
+
+	public String getStatus() {
+<span class="fc" id="L128">		return Status;</span>
+	}
+
+	public void setStatus(String status) {
+<span class="fc" id="L132">		Status = status;</span>
+<span class="fc" id="L133">	}</span>
+
+	public String getSupplyStatus() {
+<span class="fc" id="L136">		return SupplyStatus;</span>
+	}
+
+	public void setSupplyStatus(String supplyStatus) {
+<span class="fc" id="L140">		SupplyStatus = supplyStatus;</span>
+<span class="fc" id="L141">	}</span>
+
+	public String getType() {
+<span class="fc" id="L144">		return Type;</span>
+	}
+
+	public void setType(String type) {
+<span class="fc" id="L148">		Type = type;</span>
+<span class="fc" id="L149">	}</span>
+
+	public int getSup() {
+<span class="fc" id="L152">		return SupId;</span>
+	}
+
+	public void setSup(int sup) {
+<span class="fc" id="L156">		SupId = sup;</span>
+<span class="fc" id="L157">	}</span>
+        
+        public String getSupName()
+        {
+<span class="fc" id="L161">            return SupName;</span>
+        }
+		
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202504151049</span></div></body></html>

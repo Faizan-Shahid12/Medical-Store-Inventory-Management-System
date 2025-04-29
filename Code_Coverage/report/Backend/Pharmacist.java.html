@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Pharmacist.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Backend Coverage</a> &gt; <a href="index.source.html" class="el_package">Backend</a> &gt; <span class="el_source">Pharmacist.java</span></div><h1>Pharmacist.java</h1><pre class="source lang-java linenums">package Backend;
+
+import Database.DBHandler;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+
+public class Pharmacist extends User
+{
+	int PharmaId;
+	String Status;
+	String LicenseNumber;
+	ArrayList&lt;Prescription&gt; Prescriptions;
+        
+<span class="fc" id="L15">        DBHandler DB = DBHandler.getInstance();</span>
+        
+        public Pharmacist()
+<span class="fc" id="L18">        {</span>
+<span class="fc" id="L19">            Prescriptions = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L20">        }</span>
+        
+	public Pharmacist(String Us, String Pass, String Nam, String Gender1, int age1, String Ema, LocalDate DateofBirth,
+			int pharmaId,String licenseNumber, String status) 
+	{
+<span class="fc" id="L25">		super(Us, Pass, Nam, Gender1, age1, Ema, DateofBirth);</span>
+<span class="fc" id="L26">		PharmaId = pharmaId;</span>
+<span class="fc" id="L27">		Status = status;</span>
+<span class="fc" id="L28">		LicenseNumber = licenseNumber;</span>
+<span class="fc" id="L29">                Prescriptions = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L30">	}</span>
+	
+        public String getStatus()
+        {
+<span class="fc" id="L34">            return Status;</span>
+        }
+        
+        public int getPharmaId()
+        {
+<span class="fc" id="L39">            return PharmaId;</span>
+        }
+        
+        public void setPharmaId(int id)
+        {
+<span class="fc" id="L44">            PharmaId = id;</span>
+<span class="fc" id="L45">        }</span>
+        
+        public void setPrescriptions(ArrayList&lt;Prescription&gt; pres)
+        {
+<span class="nc" id="L49">            Prescriptions = pres;</span>
+<span class="nc" id="L50">        }</span>
+        
+        public ArrayList&lt;Prescription&gt; getPrescription()
+        {
+<span class="fc" id="L54">            return Prescriptions;</span>
+        }
+        
+        public String getLicenseNumber() {
+<span class="fc" id="L58">            return LicenseNumber;</span>
+        }
+
+        public void setLicenseNumber(String LicenseNumber) {
+<span class="fc" id="L62">            this.LicenseNumber = LicenseNumber;</span>
+<span class="fc" id="L63">        }</span>
+        
+        public void setStatus(String Sta)
+        {
+<span class="fc" id="L67">            Status = Sta;</span>
+<span class="fc" id="L68">        }</span>
+        
+        public void AddPrescription(int PharId,int Quantity, LocalDate AddDate, String PatientName, String Type, String DoctorName, String HospitalName, ArrayList&lt;Medicine&gt; Meds) throws SQLException
+        {
+           // int PharId = DB.getLastPrescriptionId();
+<span class="fc" id="L73">            Prescription Pres = new Prescription(PharId,Quantity,AddDate,PatientName,Type,DoctorName,HospitalName);</span>
+<span class="fc" id="L74">            Pres.setMeds(Meds);</span>
+<span class="fc" id="L75">            Prescriptions.add(Pres);</span>
+          //  DB.AddPrescription(Pres);
+<span class="fc" id="L77">        }</span>
+        
+        public double CalculateTotal(ArrayList&lt;Medicine&gt; Meds, int quan)
+        {
+<span class="fc" id="L81">            double total = 0.0;</span>
+            
+<span class="fc bfc" id="L83" title="All 2 branches covered.">            for(Medicine Med: Meds)</span>
+            {
+<span class="fc" id="L85">                total += Med.getPrice();</span>
+<span class="fc" id="L86">            }</span>
+            
+<span class="fc" id="L88">            return total*quan;</span>
+        }
+	
+        public void DeletePrescription(Prescription Pres) throws SQLException
+        {
+<span class="fc" id="L93">            Prescriptions.remove(Pres);</span>
+            //DB.RemovePrescription(Pres);
+<span class="fc" id="L95">        }</span>
+        
+        public boolean CheckQuan(ArrayList&lt;Medicine&gt; Meds, int Quan)
+        {
+<span class="fc bfc" id="L99" title="All 2 branches covered.">            for(Medicine Med: Meds)</span>
+            {
+<span class="pc bpc" id="L101" title="1 of 4 branches missed.">                if( Med.getQuantity() != 0 &amp;&amp; Med.getQuantity() &gt;= Quan)</span>
+                {
+<span class="fc" id="L103">                    continue;</span>
+                }
+                
+<span class="fc" id="L106">                return false;</span>
+            }
+            
+<span class="fc" id="L109">            return true;</span>
+        }
+        
+        public void SellMedicine(ArrayList&lt;SoldMedicine&gt; Meds,ArrayList&lt;Medicine&gt; Meds1) throws SQLException
+        {
+<span class="fc bfc" id="L114" title="All 2 branches covered.">            for(SoldMedicine Med : Meds)</span>
+            {
+<span class="pc bpc" id="L116" title="1 of 2 branches missed.">                for(Medicine Med1 : Meds1)</span>
+                {
+<span class="pc bpc" id="L118" title="1 of 2 branches missed.">                    if(Med1.getMedicineId() == Med.getMedicineId())</span>
+                    {
+<span class="fc" id="L120">                        int quan = Med1.getQuantity() - Med.getQuantity();</span>
+<span class="fc" id="L121">                        Med1.setQuantity(quan);</span>
+                      //  DB.RestockMedicine(Med1);
+<span class="fc" id="L123">                        break;</span>
+                    }
+<span class="nc" id="L125">                }</span>
+<span class="fc" id="L126">            }</span>
+            
+           // DB.AddSoldMedicine(Meds);
+<span class="fc" id="L129">        }</span>
+        
+        public void SellPrescription(Prescription Pres) throws SQLException
+        {
+<span class="fc" id="L133">            Controller Cont = new Controller();</span>
+            
+<span class="fc bfc" id="L135" title="All 2 branches covered.">            for(Prescription Pres1 : Prescriptions)</span>
+            {
+<span class="pc bpc" id="L137" title="1 of 2 branches missed.">                if(Pres1.getPresciId() == Pres.getPresciId())</span>
+                {
+<span class="fc" id="L139">                    ArrayList&lt;SoldMedicine&gt; Meds = new ArrayList&lt;&gt;();</span>
+                
+<span class="fc bfc" id="L141" title="All 2 branches covered.">                    for(Medicine Med : Pres.getMeds())</span>
+                    {
+<span class="fc" id="L143">                        SoldMedicine Med1 = new SoldMedicine(Med,Cont.getSupName(Med.getMedicineId()));</span>
+<span class="fc" id="L144">                        Med1.setQuantity(Med.getQuantity() - Pres.getQuantity());</span>
+<span class="fc" id="L145">                        Med.setQuantity(Med.getQuantity()-Pres.getQuantity());</span>
+                     //   DB.RestockMedicine(Med);
+<span class="fc" id="L147">                        Meds.add(Med1);</span>
+<span class="fc" id="L148">                    }</span>
+                    
+                    //DB.AddSoldMedicine(Meds);
+                    
+<span class="fc" id="L152">                    break;</span>
+                }
+                
+<span class="nc" id="L155">            }</span>
+<span class="fc" id="L156">        }</span>
+        
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202504151049</span></div></body></html>

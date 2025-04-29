@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Supplier.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Backend Coverage</a> &gt; <a href="index.source.html" class="el_package">Backend</a> &gt; <span class="el_source">Supplier.java</span></div><h1>Supplier.java</h1><pre class="source lang-java linenums">package Backend;
+
+import Database.DBHandler;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+
+public class Supplier extends User
+{
+    private int SupId;
+    private String LicenseNumber;
+<span class="fc" id="L12">    private String Status = &quot;Pending&quot;;</span>
+    private ArrayList&lt;Medicine&gt; SupMed;
+<span class="fc" id="L14">    private DBHandler DB = DBHandler.getInstance();</span>
+    
+    public Supplier()
+<span class="fc" id="L17">    {</span>
+        
+<span class="fc" id="L19">    }</span>
+    
+    public Supplier(String Us, String Pass, String Nam, String Gender1, int age1, String Ema, LocalDate DateofBirth, int supId, String licenseNumber, String status) 
+    {
+<span class="fc" id="L23">		super(Us, Pass, Nam, Gender1, age1, Ema, DateofBirth);</span>
+<span class="fc" id="L24">		SupId = supId;</span>
+<span class="fc" id="L25">		LicenseNumber = licenseNumber;</span>
+<span class="fc" id="L26">		Status = status;</span>
+<span class="fc" id="L27">		SupMed = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L28">    }</span>
+    
+    public void AddRequest(String Name, String Type, int quan,double price, LocalDate expiry, LocalDate Manufac) throws SQLException
+    {
+
+<span class="fc" id="L33">    	int LastId = DB.getLastMedId();</span>
+<span class="fc" id="L34">    	LastId = LastId + 1;</span>
+<span class="fc" id="L35">    	Medicine newMed = new Medicine(LastId,quan,price,expiry,Manufac,Name,&quot;Pending&quot;,&quot;Stopped&quot;,Type,this.SupId);</span>
+<span class="fc" id="L36">    	SupMed.add(newMed);</span>
+<span class="fc" id="L37">    	DB.AddMedicine(newMed);</span>
+    	
+<span class="fc" id="L39">    }</span>
+    
+    public void DeleteMedicine(Medicine Med) throws SQLException
+    {
+<span class="fc" id="L43">        SupMed.remove(Med);</span>
+<span class="fc" id="L44">        DB.DeleteMedicine(Med);</span>
+<span class="fc" id="L45">    }</span>
+    
+    public void RemoveRequest(Medicine Med) throws SQLException
+    {
+<span class="fc" id="L49">    	SupMed.remove(Med);</span>
+<span class="fc" id="L50">    	DB.RemoveMedicine(Med);</span>
+<span class="fc" id="L51">    }</span>
+    
+    public void StopSupply(Medicine Med) throws SQLException
+    {
+<span class="fc bfc" id="L55" title="All 2 branches covered.">    	for (Medicine Med1: SupMed)</span>
+    	{
+<span class="pc bpc" id="L57" title="1 of 2 branches missed.">    		if(Med1 == Med)</span>
+    		{
+<span class="fc" id="L59">    			Med1.SupplyStatus = &quot;Stopped&quot;;</span>
+<span class="fc" id="L60">                        DB.StopSupply(Med.getMedicineId());</span>
+<span class="fc" id="L61">    			break;</span>
+    		}
+<span class="nc" id="L63">    	}</span>
+    	
+<span class="fc" id="L65">    }</span>
+    
+    public void StartSupply(Medicine Med) throws SQLException
+    {
+<span class="fc bfc" id="L69" title="All 2 branches covered.">    	for (Medicine Med1: SupMed)</span>
+    	{
+<span class="pc bpc" id="L71" title="1 of 2 branches missed.">    		if(Med1 == Med)</span>
+    		{
+<span class="fc" id="L73">    			Med1.SupplyStatus = &quot;Started&quot;;</span>
+<span class="fc" id="L74">                        DB.StartSupply(Med.getMedicineId());</span>
+<span class="fc" id="L75">                        break;</span>
+    		}
+<span class="nc" id="L77">    	}</span>
+<span class="fc" id="L78">    }</span>
+    
+    public ArrayList&lt;Medicine&gt; GetPendingRequest()
+    {
+<span class="fc" id="L82">        ArrayList&lt;Medicine&gt; MedList = new ArrayList&lt;Medicine&gt;();</span>
+        
+<span class="fc bfc" id="L84" title="All 2 branches covered.">        for(Medicine Med : SupMed)</span>
+        {
+<span class="pc bpc" id="L86" title="1 of 2 branches missed.">            if(Med.getStatus().equalsIgnoreCase(&quot;Pending&quot;))</span>
+            {
+<span class="fc" id="L88">                MedList.add(Med);</span>
+            }
+<span class="fc" id="L90">        }</span>
+        
+<span class="fc" id="L92">        return MedList;</span>
+        
+    }
+    
+    public int getSupId()
+    {
+<span class="fc" id="L98">            return SupId;</span>
+    }
+    public void setSupId(int supId)
+    {
+<span class="fc" id="L102">            SupId = supId;</span>
+<span class="fc" id="L103">    }</span>
+    public String getLicenseNumber() 
+    {
+<span class="fc" id="L106">            return LicenseNumber;</span>
+    }
+    public void setLicenseNumber(String licenseNumber) 
+    {
+<span class="fc" id="L110">            LicenseNumber = licenseNumber;</span>
+<span class="fc" id="L111">    }</span>
+    public String getStatus() 
+    {
+<span class="fc" id="L114">            return Status;</span>
+    }
+    public void setStatus(String status) 
+    {
+<span class="fc" id="L118">            Status = status;</span>
+<span class="fc" id="L119">    }</span>
+    public void setSupMed(ArrayList&lt;Medicine&gt; SupMed1)
+    {
+<span class="fc" id="L122">            SupMed = SupMed1;</span>
+<span class="fc" id="L123">    }</span>
+    public ArrayList&lt;Medicine&gt; getSupMed()
+    {
+<span class="fc" id="L126">        return SupMed;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202504151049</span></div></body></html>

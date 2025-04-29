@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Owner.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Backend Coverage</a> &gt; <a href="index.source.html" class="el_package">Backend</a> &gt; <span class="el_source">Owner.java</span></div><h1>Owner.java</h1><pre class="source lang-java linenums">package Backend;
+
+import Database.DBHandler;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+
+public class Owner extends User
+{
+	int OwnerId;
+<span class="fc" id="L11">        DBHandler DB = DBHandler.getInstance();</span>
+        
+	public Owner() 
+	{
+<span class="fc" id="L15">            super();</span>
+<span class="fc" id="L16">	}</span>
+
+	public Owner(String Us, String Pass, String Nam, String Gender1, int age1, String Ema, LocalDate DateofBirth, int ownerId) 
+	{
+<span class="fc" id="L20">		super(Us, Pass, Nam, Gender1, age1, Ema, DateofBirth);</span>
+<span class="fc" id="L21">		OwnerId = ownerId;</span>
+<span class="fc" id="L22">	}</span>
+	
+	public void CreateInventoryManager(String Us, String Pass, String Nam, String Gender,int age1, String Ema, LocalDate DateofBirth,int Id, ArrayList&lt;Medicine&gt; Meds) 
+        {
+            // DBHandler DB = DBHandler.getInstance();
+
+            // DB.WriteUser(Us, Pass, Nam, Gender, age1, Ema, DateofBirth);
+
+             //int Id = DB.GetLastIMId() + 1;
+
+<span class="fc" id="L32">             InventoryManager Manage = new InventoryManager(Us,Pass,Nam,Gender,age1,Ema,DateofBirth,Id, &quot;Pending&quot;, Meds);</span>
+
+             //DB
+
+<span class="fc" id="L36">         }</span>
+
+         public void CreateSupplier(String Us, String Pass, String Nam, String Gender1, int age1, String Ema, LocalDate DateofBirth, int supId, String licenseNumber, String status) 
+         {
+                     // DBHandler DB = DBHandler.getInstance();
+
+             // DB.WriteUser(Us, Pass, Nam, Gender, age1, Ema, DateofBirth);
+
+             // int Id = DB.GetLastSuId() + 1;
+
+<span class="fc" id="L46">             Supplier Sup = new Supplier(Us,Pass,Nam,Gender1,age1,Ema,DateofBirth,supId, licenseNumber ,&quot;Pending&quot;);</span>
+
+             //DB
+<span class="fc" id="L49">         }</span>
+
+         public void CreatePharmacist(String Us, String Pass, String Nam, String Gender1, int age1, String Ema, LocalDate DateofBirth, int PharmaId, String licenseNumber, String status) 
+         {
+                     // DBHandler DB = DBHandler.getInstance();
+
+             // DB.WriteUser(Us, Pass, Nam, Gender, age1, Ema, DateofBirth);
+
+             // int Id = DB.GetLastPharmaId() + 1;
+
+<span class="fc" id="L59">                     Pharmacist  Pharma = new Pharmacist(Us,Pass,Nam,Gender1,age1,Ema,DateofBirth,PharmaId,&quot;Pending&quot;, licenseNumber);</span>
+
+             //DB
+<span class="fc" id="L62">         }</span>
+        
+         public void ApproveManager(int Id) throws SQLException
+         {
+<span class="fc" id="L66">             DB.ApproveManager(Id);</span>
+<span class="fc" id="L67">         }</span>
+        
+         public void RejectManager(int Id) throws SQLException
+         {
+<span class="fc" id="L71">             DB.RejectManager(Id);</span>
+<span class="fc" id="L72">         }</span>
+        
+         public void DeleteManager(int Id) throws SQLException
+         {
+<span class="fc" id="L76">             DB.DeleteManager(Id);</span>
+<span class="fc" id="L77">         }</span>
+        
+         public void ApproveSupplier(int Id) throws SQLException
+         {
+<span class="fc" id="L81">             DB.ApproveSupplier(Id);</span>
+<span class="fc" id="L82">         }</span>
+        
+         public void RejectSupplier(int Id) throws SQLException
+         {
+<span class="fc" id="L86">             DB.RejectSupplier(Id);</span>
+<span class="fc" id="L87">         }</span>
+        
+         public void DeleteSupplier(int Id) throws SQLException
+         {
+<span class="fc" id="L91">             DB.DeleteSupplier(Id);</span>
+<span class="fc" id="L92">         }</span>
+         
+         public void ApprovePharmacist(int Id) throws SQLException
+         {
+<span class="fc" id="L96">             DB.ApprovePharmacist(Id);</span>
+<span class="fc" id="L97">         }</span>
+        
+         public void RejectPharmacist(int Id) throws SQLException 
+         {
+<span class="fc" id="L101">             DB.RejectPharmacist(Id);</span>
+<span class="fc" id="L102">         }</span>
+
+         public void DeletePharmacist(int Id) throws SQLException 
+         {
+<span class="fc" id="L106">             DB.DeletePharmacist(Id);</span>
+<span class="fc" id="L107">         }</span>
+         
+         public void ApproveMed(Medicine Med) throws SQLException
+         {
+<span class="fc" id="L111">             Med.setStatus(&quot;Approved&quot;);</span>
+<span class="fc" id="L112">             Med.setSupplyStatus(&quot;Started&quot;);</span>
+<span class="fc" id="L113">             DB.ApproveMedicine(Med.getMedicineId());</span>
+<span class="fc" id="L114">             DB.StartSupply(Med.getMedicineId());</span>
+<span class="fc" id="L115">         }</span>
+         
+         public void RejectMed(Medicine Med) throws SQLException
+         {
+<span class="fc" id="L119">             Med.setStatus(&quot;Rejected&quot;);</span>
+<span class="fc" id="L120">             DB.RejectMedicine(Med.getMedicineId());</span>
+<span class="fc" id="L121">         }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202504151049</span></div></body></html>
