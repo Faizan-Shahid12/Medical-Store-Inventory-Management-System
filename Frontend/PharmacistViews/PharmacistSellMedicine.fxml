@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="456.0" prefWidth="610.0" stylesheets="@PharmacistSellMedicine.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PharmacistController.PharmacistSellMedicineController">
+   <children>
+      <AnchorPane fx:id="userManagementPane" layoutX="10.0" layoutY="10.0" prefHeight="800.0" prefWidth="1070.0" stylesheets="@../StoreOwnerViews/StoreOwnerManageUsers.css">
+         <children>
+            <Text fx:id="pageTitle" layoutX="22.0" layoutY="41.0" styleClass="pageTitle" text="Sell Medicines" />
+            <TextField fx:id="searchPatientField" layoutX="22.0" layoutY="75.0" prefHeight="25.0" prefWidth="205.0" promptText="Search by Medicine Name" />
+            <Button layoutX="236.0" layoutY="74.0" onAction="#handleSearch" prefHeight="27.0" prefWidth="130.0" text="Search" />
+            <Button layoutX="815.0" layoutY="743.0" onAction="#BuyMedicine" prefHeight="27.0" prefWidth="197.0" text="Buy Medicine" />
+            <Text fx:id="pageTitle" layoutX="22.0" layoutY="651.0" styleClass="pageTitle" text="Total Cost" wrappingWidth="129.79200744628906" />
+            <Text fx:id="pageTitle" layoutX="22.0" layoutY="689.0" styleClass="pageTitle" text="RS" wrappingWidth="37.79200744628906" />
+            <Text fx:id="pageTitle1" layoutX="65.0" layoutY="685.0" styleClass="pageTitle" text="0.0" wrappingWidth="139.79200744628906" />
+            <TableView fx:id="medicineTable" layoutX="22.0" layoutY="132.0" onMouseClicked="#ToSelectTable" prefHeight="228.0" prefWidth="1000.0">
+               <columns>
+                  <TableColumn fx:id="medicineIdColumn1" prefWidth="100.0" text="Medicine ID" />
+                  <TableColumn fx:id="medicineNameColumn1" prefWidth="200.0" text="Medicine Name" />
+                  <TableColumn fx:id="quantityColumn1" prefWidth="100.0" text="Quantity" />
+                  <TableColumn fx:id="medicineTypeColumn1" prefWidth="150.0" text="Type" />
+                  <TableColumn fx:id="PriceColumn1" prefWidth="150.0" text="Price" />
+                  <TableColumn fx:id="expiryDateColumn1" prefWidth="150.0" text="Expiry Date" />
+                  <TableColumn fx:id="statusColumn1" prefWidth="150.0" text="Supplier Name" />
+               </columns>
+            </TableView>
+            <TableView fx:id="SelectTable" layoutX="22.0" layoutY="414.0" onMouseClicked="#ToMedicineTable" prefHeight="200.0" prefWidth="1000.0">
+               <columns>
+                  <TableColumn fx:id="medicineIdColumn" prefWidth="100.0" text="Medicine ID" />
+                  <TableColumn fx:id="medicineNameColumn" prefWidth="201.0" text="Medicine Name" />
+                  <TableColumn fx:id="quantityColumn" prefWidth="102.0" text="Quantity" />
+                  <TableColumn fx:id="medicineTypeColumn" prefWidth="110.0" text="Type" />
+                  <TableColumn fx:id="PriceColumn" prefWidth="110.0" text="Price" />
+                  <TableColumn fx:id="expiryDateColumn" prefWidth="128.0" text="Expiry Date" />
+                  <TableColumn fx:id="statusColumn" prefWidth="143.0" text="Supplier Name" />
+                  <TableColumn fx:id="BuyQuantityColumn" prefWidth="105.0" text="Buy Quantity" />
+               </columns>
+            </TableView>
+            <Text fx:id="pageTitle" layoutX="22.0" layoutY="396.0" styleClass="pageTitle" text="Selected Medicines" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

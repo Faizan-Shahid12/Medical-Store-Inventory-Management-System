@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="578.0" prefWidth="1068.0" stylesheets="@PharmacistNewPrescription.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PharmacistController.PharmacistNewPrescriptionController">
+   <children>
+      <VBox alignment="CENTER" layoutX="17.0" layoutY="24.0" prefHeight="551.0" prefWidth="234.0" spacing="10.0">
+          
+          <Label fx:id="pageTitle" style="-fx-font-size: 18px; -fx-font-weight: bold;" text="New Prescription" />
+      
+          <TextField fx:id="patientNameField" promptText="Patient Name" />
+          <TextField fx:id="doctorNameField" promptText="Doctor Name" />
+         <TextField fx:id="HospitalField" promptText="Hospital Name" />
+         <ComboBox fx:id="Typebox" prefHeight="25.0" prefWidth="537.0" promptText="Type of Prescription" />
+          <TextField fx:id="quantityField" promptText="Quantity" />
+          <DatePicker fx:id="datePicker" prefHeight="25.0" prefWidth="588.0" promptText="Date of Prescription" />
+      
+          <Button fx:id="submitBtn" onAction="#Add_Prescription" text="Submit Prescription" textFill="WHITE" />
+      
+      </VBox>
+      <TableView fx:id="medicineTable" layoutX="312.0" layoutY="179.0" prefHeight="314.0" prefWidth="701.0">
+         <columns>
+            <TableColumn fx:id="medicineIdColumn1" prefWidth="94.0" text="Medicine ID" />
+            <TableColumn fx:id="medicineNameColumn1" prefWidth="206.0" text="Medicine Name" />
+            <TableColumn fx:id="medicineTypeColumn1" prefWidth="124.0" text="Type" />
+            <TableColumn fx:id="quantityColumn1" prefWidth="141.0" text="Quantity" />
+            <TableColumn fx:id="PriceColumn1" prefWidth="135.0" text="Price" />
+         </columns>
+      </TableView>
+   </children>
+</AnchorPane>
