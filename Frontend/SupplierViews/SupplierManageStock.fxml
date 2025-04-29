@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="manageStockPane" prefHeight="800.0" prefWidth="1070.0" stylesheets="@SupplierManageStock.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SupplierController.SupplierManageStockController">
+    
+    <children>
+        <Text fx:id="pageTitle" layoutX="22.0" layoutY="41.0" styleClass="pageTitle" text="Manage Supply" />
+
+        
+        <TextField fx:id="searchMedicineField" layoutX="30.0" layoutY="80.0" prefWidth="250.0" promptText="Search by Medicine Name" />
+        <Button fx:id="searchButton" layoutX="298.0" layoutY="80.0" onAction="#handleSearch" prefHeight="25.0" prefWidth="77.0" text="    Search" />
+
+        
+        <TableView fx:id="SupplyTable" layoutX="30.0" layoutY="140.0" prefHeight="500.0" prefWidth="1020.0">
+            <columns>
+                <TableColumn fx:id="nameColumn" prefWidth="178.0" text="Medicine Name" />
+                <TableColumn fx:id="typeColumn" prefWidth="122.0" text="Type" />
+                <TableColumn fx:id="quantityColumn" prefWidth="100" text="Quantity" />
+                <TableColumn fx:id="priceColumn" prefWidth="100" text="Price" />
+                <TableColumn fx:id="mfgDateColumn" prefWidth="200" text="Manufacture Date" />
+                <TableColumn fx:id="expDateColumn" prefWidth="165.0" text="Expiry Date" />
+            <TableColumn fx:id="expDateColumn1" prefWidth="152.0" text="Status" />
+            </columns>
+        </TableView>
+
+       
+        <Button fx:id="deleteButton" layoutX="734.0" layoutY="660.0" onAction="#StopSupply" prefHeight="25.0" prefWidth="148.0" text="           Stop Supply" />
+      <Button fx:id="deleteButton1" layoutX="902.0" layoutY="660.0" onAction="#StartSupply" prefHeight="25.0" prefWidth="148.0" text="          Start Supply" />
+    </children>
+</AnchorPane>
