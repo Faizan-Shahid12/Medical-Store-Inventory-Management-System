@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="stockPane" prefHeight="800.0" prefWidth="1070.0" stylesheets="@InventoryManagerExpiredMed.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="InventoryManagerController.InventoryManagerExpiredMedController">
+    <children>
+        <Text fx:id="pageTitle" layoutX="22.0" layoutY="41.0" styleClass="pageTitle" text="Expired Medicines" />
+        
+        <!-- Search Bar -->
+        <TextField fx:id="searchBar" layoutX="30.0" layoutY="100.0" prefWidth="400.0" promptText="Search Medicine..." />
+	
+        <!-- Restock Table -->
+        <TableView fx:id="stockTable" layoutX="30.0" layoutY="160.0" prefHeight="500.0" prefWidth="1000.0">
+            <columns>
+                <TableColumn fx:id="medicineIdColumn" prefWidth="150.0" text="Medicine ID" />
+                <TableColumn fx:id="medicineNameColumn" prefWidth="168.0" text="Medicine Name" />
+                <TableColumn fx:id="medicineTypeColumn" prefWidth="144.0" text="Type" />
+                <TableColumn fx:id="quantityColumn" prefWidth="138.0" text="Quantity" />                
+                <TableColumn fx:id="PriceColumn" prefWidth="87.0" text="Price" />
+            <TableColumn fx:id="expiryDateColumn" prefWidth="153.0" text="Expiry Date" />
+            <TableColumn fx:id="SupName" prefWidth="159.0" text="Supplier Name" />
+                
+            </columns>
+        </TableView>
+        <Button fx:id="removeButton" layoutX="891.0" layoutY="674.0" onAction="#removeMedicine" prefHeight="27.0" prefWidth="139.0" text="Remove" />
+      <Button fx:id="removeButton" layoutX="461.0" layoutY="99.0" onAction="#FilterMedicine" prefHeight="27.0" prefWidth="139.0" text="Filter" />
+    </children>
+</AnchorPane>

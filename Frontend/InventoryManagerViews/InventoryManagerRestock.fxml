@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="restockPane" prefHeight="800.0" prefWidth="1070.0" stylesheets="@InventoryManagerRestock.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="InventoryManagerController.InventoryManagerRestockController">
+    <children>
+        <Text fx:id="pageTitle" layoutX="22.0" layoutY="41.0" styleClass="pageTitle" text="Restock Medicines" />
+        
+        <!-- Search Bar -->
+        <TextField fx:id="searchBar" layoutX="30.0" layoutY="100.0" onAction="#FilterMedicine" prefWidth="400.0" promptText="Search Medicine..." />
+		<TextField fx:id="addQuantityField" layoutX="467.0" layoutY="100.0" prefHeight="25.0" prefWidth="149.0" promptText="Enter Quantity" />
+        <!-- Restock Table -->
+        <TableView fx:id="restockTable" layoutX="30.0" layoutY="160.0" prefHeight="500.0" prefWidth="1000.0">
+            <columns>
+                <TableColumn fx:id="medicineIdColumn" prefWidth="100.0" text="Medicine ID" />
+                <TableColumn fx:id="medicineNameColumn" prefWidth="147.0" text="Medicine Name" />                      
+                <TableColumn fx:id="medicineTypeColumn" prefWidth="117.0" text="Type" />
+            <TableColumn fx:id="PriceColumn" prefWidth="118.0" text="Price" />
+                <TableColumn fx:id="expiryDateColumn" prefWidth="142.0" text="Expiry Date" />
+                <TableColumn fx:id="currentQuantityColumn" prefWidth="131.0" text="Current Quantity" />
+                <TableColumn fx:id="restockQuantityColumn" prefWidth="139.0" text="Supplier Name">
+                </TableColumn>
+            <TableColumn fx:id="StatusColumn" prefWidth="105.0" text="Status" />
+            </columns>
+        </TableView>
+        <Button fx:id="restockButton" layoutX="632.0" layoutY="98.0" onAction="#restockMedicine" prefHeight="27.0" prefWidth="96.0" text="Restock" />
+    </children>
+</AnchorPane>

@@ -1,0 +1,62 @@
+@font-face {
+    src: url(font/Montserrat-Bold.ttf);
+}
+@font-face {
+    src: url(font/Montserrat-SemiBold.ttf);
+}
+@font-face {
+    src: url(font/Montserrat-Regular.ttf);
+}
+@font-face {
+    src: url(font/Montserrat-ExtraBold.ttf);
+}
+@font-face {
+    src: url(font/Montserrat-Black.ttf);
+}
+@font-face {
+    src: url(font/Montserrat-Thin.ttf);
+}
+
+AnchorPane {
+    -fx-background-color: white;
+}
+
+Button, MenuButton, ToggleButton, ComboBox, TableView {
+    -fx-cursor: hand;
+    -fx-border-radius: 5;
+}
+Button {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+    -fx-text-fill: white;
+    -fx-font-family: "Montserrat SemiBold";
+    -fx-alignment: center-left;
+}
+Button:hover {
+    -fx-background-color: white;
+    -fx-text-fill: #fa7202;
+}
+
+#pageTitle{
+    -fx-text-fill: tomato;
+    -fx-font-family: "Montserrat ExtraBold";
+    -fx-font-size: 24px;
+    -fx-background-color: transparent;
+    -fx-border-style: solid;
+    -fx-border-width: 0 2px 0 0;
+    -fx-border-color: tomato;
+    -fx-border-radius: 0;
+}
+#removeButton {
+    -fx-background-color: tomato;
+    -fx-font-family: "Montserrat SemiBold";
+    -fx-alignment: center;
+    -fx-border-style: solid;
+    -fx-border-width: 2px;
+    -fx-border-color: tomato;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+#removeButton:hover {
+    -fx-background-color: transparent;
+}

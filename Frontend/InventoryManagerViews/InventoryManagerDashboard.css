@@ -1,0 +1,158 @@
+@font-face {
+    src: url(font/Montserrat-Bold.ttf);
+}
+@font-face {
+    src: url(font/Montserrat-SemiBold.ttf);
+}
+@font-face {
+    src: url(font/Montserrat-Regular.ttf);
+}
+@font-face {
+    src: url(font/Montserrat-ExtraBold.ttf);
+}
+@font-face {
+    src: url(font/Montserrat-Black.ttf);
+}
+@font-face {
+    src: url(font/Montserrat-Thin.ttf);
+}
+AnchorPane {
+    -fx-background-color: white;
+}
+#sidePanel {
+    -fx-background-color: linear-gradient(to top, #fb6f12, tomato);
+    -fx-box-border: transparent;
+}
+Button, MenuButton, ToggleButton, ComboBox, TableView {
+    -fx-cursor: hand;
+    -fx-border-radius: 5;
+}
+Button {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+    -fx-text-fill: white;
+    -fx-font-family: "Montserrat SemiBold";
+    -fx-alignment: center-left;
+}
+Button:hover {
+    -fx-background-color: white;
+    -fx-text-fill: #fa7202;
+}
+#sidePanel Button {
+    -fx-border-style: none none solid none;
+    -fx-border-width: 0 0 0.5px 0;
+    -fx-border-color: transparent transparent white transparent;
+    -fx-border-radius: 0;
+}
+#manageMedicinesBtn {
+    -fx-background-color: white;
+    -fx-text-fill: #fa7202;
+    -fx-border-width: 0;
+}
+#logoutButton {
+    -fx-alignment: center;
+    -fx-border-style: solid;
+    -fx-border-width: 1px;
+    -fx-font-family: "Montserrat Regular";
+    -fx-text-fill: white;
+    -fx-font-weight: 900;
+    -fx-font-size: 14px;
+    -fx-border-color: white;
+    -fx-border-radius: 10;
+}
+#logoutButton:hover {
+    -fx-text-fill: tomato;
+    -fx-background-color: white;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-border-color: white;
+}
+#welcome {
+    -fx-font-family: "Monserrat Regular";
+    -fx-fill: white;
+    -fx-font-size: 16px;
+}
+#name {
+    -fx-fill: white;
+    -fx-font-weight: 900;
+    -fx-font-size: 18px;
+}
+#userRole {
+    -fx-font-weight: 900;
+    -fx-font-size: 14px;
+    -fx-fill: #08ec08;
+}
+#pageTitle{
+    -fx-text-fill: tomato;
+    -fx-font-family: "Montserrat ExtraBold";
+    -fx-font-size: 24px;
+    -fx-background-color: transparent;
+    -fx-border-style: solid;
+    -fx-border-width: 0 2px 0 0;
+    -fx-border-color: tomato;
+    -fx-border-radius: 0;
+}
+#pageTitle1{
+    -fx-text-fill: tomato;
+    -fx-font-family: "Montserrat ExtraBold";
+    -fx-font-size: 24px;
+    -fx-background-color: transparent;
+    -fx-border-style: solid;
+    -fx-border-width: 0 2px 0 0;
+    -fx-border-color: tomato;
+    -fx-border-radius: 0;
+}
+#addButton, #approveButton, #DeleteButton, #RemoveButton {
+    -fx-background-color: tomato;
+    -fx-font-family: "Montserrat SemiBold";
+    -fx-alignment: center;
+    -fx-border-style: solid;
+    -fx-border-width: 2px;
+    -fx-border-color: tomato;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+#addButton:hover, #approveButton:hover, #DeleteButton:hover,#RemoveButton:hover {
+    -fx-background-color: transparent;
+}
+#searchBar {
+    -fx-background-color: transparent;
+    -fx-border-style: solid;
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: rgba(0, 0, 0, 0.6);
+}
+#searchBar:focused {
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, tomato, 5, 0.5, 0, 0);
+    -fx-background-color: white;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-border-color: transparent;
+}
+#addMedicinePane Button{
+    -fx-background-color: tomato;
+    -fx-font-family: "Montserrat SemiBold";
+    -fx-alignment: center;
+    -fx-border-style: solid;
+    -fx-border-width: 2px;
+    -fx-border-color: tomato;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+#addMedicinePane Button:hover{
+    -fx-background-color: transparent;
+}
+#addMedicinePane TextField, #addMedicinePane ComboBox {
+    -fx-background-color: transparent;
+    -fx-border-style: solid;
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: rgba(0, 0, 0, 0.6);
+}
+#addMedicinePane TextField:focused{
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, tomato, 5, 0.5, 0, 0);
+    -fx-background-color: white;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-border-color: transparent;
+}

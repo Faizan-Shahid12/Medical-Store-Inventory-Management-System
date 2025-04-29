@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="mainContent" prefHeight="733.0" prefWidth="1059.0" stylesheets="@viewReports.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="InventoryManagerController.ViewReportsController">
+    <children>
+        <Text fx:id="pageTitle" layoutX="30.0" layoutY="41.0" styleClass="pageTitle" text="View Reports" />
+        <ComboBox fx:id="reportTypeCombo" layoutX="30.0" layoutY="100.0" onAction="#loadReport" prefWidth="200.0" promptText="Select Report Type" />
+        <TextField fx:id="searchBar" layoutX="240.0" layoutY="100.0" onAction="#filterReport" prefWidth="300.0" promptText="Search..." />
+        <Button fx:id="refreshButton" layoutX="555.0" layoutY="100.0" onAction="#refreshReport" prefHeight="27.0" prefWidth="165.0" text="🔄 Refresh" />
+        <TableView fx:id="reportTable" layoutX="30.0" layoutY="160.0" prefHeight="600.0" prefWidth="1000.0">
+            <columns>
+                <!--Dynamic based on user role-->
+            </columns>
+        </TableView>
+    </children>
+</AnchorPane>
