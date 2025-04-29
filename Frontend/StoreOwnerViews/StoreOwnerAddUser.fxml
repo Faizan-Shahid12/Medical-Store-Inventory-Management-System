@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="addStockPane" prefHeight="649.0" prefWidth="1070.0" stylesheets="@../SupplierViews/SupplierAddStock.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StoreOwnerControllers.StoreOwnerAddUserController">
+   <children>
+      <Text fx:id="pageTitle" layoutX="22.0" layoutY="41.0" styleClass="pageTitle" text="Add New User" />
+      <TextField fx:id="UserName" layoutX="30.0" layoutY="100.0" prefWidth="300.0" promptText="User Name" />
+      <ComboBox fx:id="RoleCombo" layoutX="350.0" layoutY="100.0" onAction="#ShowField" prefWidth="200.0" promptText="User Type" />
+      <TextField fx:id="PasswordField" layoutX="30.0" layoutY="160.0" prefWidth="300.0" promptText="Password" />
+      <TextField fx:id="NameField" layoutX="30.0" layoutY="217.0" prefHeight="26.0" prefWidth="300.0" promptText="Name" />
+      <DatePicker fx:id="DOB" layoutX="350.0" layoutY="218.0" onAction="#SetAge" prefHeight="25.0" prefWidth="200.0" promptText="Date of Birth" />
+      <Button fx:id="submitRequestButton" layoutX="250.0" layoutY="362.0" onAction="#submitRequest" prefWidth="200.0" text="Add User" />
+      <TextField fx:id="EmailField" layoutX="350.0" layoutY="160.0" prefWidth="200.0" promptText="Email" />
+      <ComboBox fx:id="GenderCombo" layoutX="350.0" layoutY="262.0" prefWidth="200.0" promptText="Gender" />
+      <TextField fx:id="AgeField" layoutX="30.0" layoutY="262.0" prefHeight="26.0" prefWidth="300.0" promptText="Age" />
+      <TextField fx:id="LicenseField" layoutX="200.0" layoutY="312.0" prefHeight="26.0" prefWidth="300.0" promptText="License Number" />
+   </children>
+</AnchorPane>
